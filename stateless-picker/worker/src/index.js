@@ -203,23 +203,14 @@ app.onError((e, c) => {
   return c.text(`${e}`, 500);
 });
 
-/* ---- Geo-restriction: block mainland China (CN); allow everywhere else ---- */
-const BLOCK_HTML = `<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Not available in your region</title><style>body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:#0b0b0f;color:#f2f2f7;font-family:-apple-system,system-ui,sans-serif;text-align:center;padding:28px}div{max-width:520px}h1{font-size:20px;margin-bottom:14px}p{color:#9a9aa8;font-size:14px;line-height:1.8}</style></head><body><div><h1>本服务在你所在地区不可用</h1><p>This service is not available in your region.<br><br>本项目免费开源、禁止售卖；仅面向中国大陆以外地区提供访问。<br>This free & open-source project is not for sale, and is served only outside mainland China.</p></div></body></html>`;
-
 export default {
   async fetch(request, env, ctx) {
-    const country = request && request.cf && request.cf.country;
     let pathname = "/";
     try { pathname = new URL(request.url).pathname; } catch (e) {}
-    // Telegram's webhook POST is a server-to-server call (non-CN anyway) — never geo-block /tg.
-    if (country === "CN" && pathname !== "/tg") {
-      return new Response(BLOCK_HTML, { status: 403, headers: { "Content-Type": "text/html;charset=utf-8", "Cache-Control": "no-store" } });
-    }
     // Lightweight access log — stream it live with `wrangler tail` to spot resale / abuse.
     // (No IP logged; edge-cached static fetches won't appear here, but page loads will.)
     try {
       console.log("REQ " + JSON.stringify({
-        country: country || "?",
         path: pathname,
         ref: request.headers.get("referer") || "",
         ua: (request.headers.get("user-agent") || "").slice(0, 90),
