@@ -513,7 +513,6 @@ function getPageHtml() {
 <meta name="theme-color" content="#0a0c11">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="apple-touch-icon" href="/icon-180.png">
-<link rel="icon" href="/icon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"><\/script>
 <style>
@@ -1375,7 +1374,6 @@ function getSetLocationHtml(opts = {}) {
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#0a0c11">
 <link rel="apple-touch-icon" href="/icon-180.png">
-<link rel="icon" href="/icon.svg" type="image/svg+xml">
 <style>
 :root{
   --bg:#0a0c11; --card:#12161d; --card2:#191e28; --line:#242b38;
@@ -1395,7 +1393,6 @@ body{
 }
 .wrap{ max-width:540px; margin:0 auto; }
 header{ text-align:center; padding:10px 0 18px; }
-.logo{ width:64px; height:64px; border-radius:18px; display:block; margin:0 auto 12px; box-shadow:0 0 0 1px var(--line),0 8px 24px rgba(23,195,207,.25); }
 h1{ font-size:21px; font-weight:800; background:linear-gradient(92deg,#eafcff,#7fe3ea 55%,#22c55e); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
 .subtitle{ font-size:13px; color:var(--muted); margin-top:5px; }
 
@@ -1459,7 +1456,6 @@ h1{ font-size:21px; font-weight:800; background:linear-gradient(92deg,#eafcff,#7
 <body>
 <div class="wrap">
   <header>
-    <a href="/" style="text-decoration:none"><img class="logo" src="/icon.svg" alt="logo"></a>
     <h1>一键切换定位 · 即刻生效</h1>
     <div class="subtitle">传入高德/苹果/百度/Google 地图分享链直接切换</div>
   </header>
@@ -1640,7 +1636,6 @@ function getLandingHtml() {
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#0a0c11">
 <link rel="apple-touch-icon" href="/icon-180.png">
-<link rel="icon" href="/icon.svg" type="image/svg+xml">
 <style>
 :root{
   --bg:#0a0c11; --card:#12161d; --card2:#191e28; --line:#242b38;
@@ -1660,9 +1655,7 @@ body{
 .wrap{ max-width:600px; margin:0 auto; padding:20px 16px calc(44px + env(safe-area-inset-bottom)); }
 
 /* --- header / branding --- */
-header{ text-align:center; padding:8px 0 6px; }
-header .logowrap{ position:relative; width:74px; margin:0 auto 14px; }
-header .logo{ width:74px; height:74px; border-radius:20px; display:block; box-shadow:0 0 0 1px var(--line),0 10px 30px rgba(23,195,207,.28); }
+header{ text-align:center; padding:12px 0 6px; }
 h1{ font-size:23px; font-weight:800; letter-spacing:.3px; background:linear-gradient(92deg,#eafcff,#7fe3ea 55%,#22c55e); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
 .credit{ font-size:12px; color:var(--muted); margin-top:9px; line-height:1.7; }
 .credit a{ color:#8fe0e6; text-decoration:none; }
@@ -1711,7 +1704,6 @@ footer b{ color:#8fe0e6; }
 <body>
 <div class="wrap">
   <header>
-    <div class="logowrap"><img class="logo" src="/icon.svg" alt=""></div>
     <h1>iOS Location Spoofer · 虚拟定位</h1>
     <p class="credit">
       fork from 鸣谢贡献者：<a href="https://github.com/Yu9191/wloc" target="_blank" rel="noopener">Yu9191</a> ·
@@ -1818,7 +1810,6 @@ const MANIFEST = {
   background_color: "#f2f2f7",
   theme_color: "#007aff",
   icons: [
-    { src: "/icon.svg", sizes: "any", type: "image/svg+xml", purpose: "any" },
     { src: "/icon-180.png", sizes: "180x180", type: "image/png", purpose: "any" },
     { src: "/icon-512.png", sizes: "512x512", type: "image/png", purpose: "any maskable" },
   ],
@@ -1827,10 +1818,9 @@ const IMG_CACHE = "public, max-age=604800, immutable";
 app.get("/manifest.webmanifest", (c) =>
   c.body(JSON.stringify(MANIFEST), 200, { "Content-Type": "application/manifest+json", "Cache-Control": IMG_CACHE })
 );
-app.get("/icon.svg", (c) => c.body(ICON_SVG, 200, { "Content-Type": "image/svg+xml", "Cache-Control": IMG_CACHE }));
 app.get("/icon-180.png", (c) => c.body(b64ToBytes(ICON_180_B64), 200, { "Content-Type": "image/png", "Cache-Control": IMG_CACHE }));
 app.get("/icon-512.png", (c) => c.body(b64ToBytes(ICON_512_B64), 200, { "Content-Type": "image/png", "Cache-Control": IMG_CACHE }));
-app.get("/favicon.ico", (c) => c.body(ICON_SVG, 200, { "Content-Type": "image/svg+xml", "Cache-Control": IMG_CACHE }));
+app.get("/favicon.ico", (c) => c.body("", 204));
 
 /* ---- Self-hosted on-device module ----
    Serve the two module scripts + a subscribable manifest so the whole stateless

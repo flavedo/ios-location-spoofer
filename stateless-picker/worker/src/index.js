@@ -2,7 +2,7 @@ import { Hono } from "hono/tiny";
 import { getPageHtml, getSetLocationHtml } from "./page.js";
 import { getLandingHtml } from "./landing.js";
 import { parseCoords, toWgs84, gcj02ToWgs84, round6, fetchAltitude } from "./parse.js";
-import { ICON_180_B64, ICON_512_B64, ICON_SVG, b64ToBytes } from "./icons.js";
+import { ICON_180_B64, ICON_512_B64, b64ToBytes } from "./icons.js";
 import { LOCATION_SPOOFER_B64, LOCATION_SETTINGS_B64, LOCATION_SPOOFER_QX_B64 } from "./modules.js";
 
 const app = new Hono();
@@ -28,7 +28,6 @@ const MANIFEST = {
   background_color: "#f2f2f7",
   theme_color: "#007aff",
   icons: [
-    { src: "/icon.svg", sizes: "any", type: "image/svg+xml", purpose: "any" },
     { src: "/icon-180.png", sizes: "180x180", type: "image/png", purpose: "any" },
     { src: "/icon-512.png", sizes: "512x512", type: "image/png", purpose: "any maskable" },
   ],
@@ -37,10 +36,9 @@ const IMG_CACHE = "public, max-age=604800, immutable";
 app.get("/manifest.webmanifest", (c) =>
   c.body(JSON.stringify(MANIFEST), 200, { "Content-Type": "application/manifest+json", "Cache-Control": IMG_CACHE })
 );
-app.get("/icon.svg", (c) => c.body(ICON_SVG, 200, { "Content-Type": "image/svg+xml", "Cache-Control": IMG_CACHE }));
 app.get("/icon-180.png", (c) => c.body(b64ToBytes(ICON_180_B64), 200, { "Content-Type": "image/png", "Cache-Control": IMG_CACHE }));
 app.get("/icon-512.png", (c) => c.body(b64ToBytes(ICON_512_B64), 200, { "Content-Type": "image/png", "Cache-Control": IMG_CACHE }));
-app.get("/favicon.ico", (c) => c.body(ICON_SVG, 200, { "Content-Type": "image/svg+xml", "Cache-Control": IMG_CACHE }));
+app.get("/favicon.ico", (c) => c.body("", 204));
 
 /* ---- Self-hosted on-device module ----
    Serve the two module scripts + a subscribable manifest so the whole stateless

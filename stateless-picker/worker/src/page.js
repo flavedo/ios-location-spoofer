@@ -12,7 +12,6 @@ export function getPageHtml() {
 <meta name="theme-color" content="#0a0c11">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="apple-touch-icon" href="/icon-180.png">
-<link rel="icon" href="/icon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"><\/script>
 <style>
@@ -874,7 +873,6 @@ export function getSetLocationHtml(opts = {}) {
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#0a0c11">
 <link rel="apple-touch-icon" href="/icon-180.png">
-<link rel="icon" href="/icon.svg" type="image/svg+xml">
 <style>
 :root{
   --bg:#0a0c11; --card:#12161d; --card2:#191e28; --line:#242b38;
@@ -894,7 +892,6 @@ body{
 }
 .wrap{ max-width:540px; margin:0 auto; }
 header{ text-align:center; padding:10px 0 18px; }
-.logo{ width:64px; height:64px; border-radius:18px; display:block; margin:0 auto 12px; box-shadow:0 0 0 1px var(--line),0 8px 24px rgba(23,195,207,.25); }
 h1{ font-size:21px; font-weight:800; background:linear-gradient(92deg,#eafcff,#7fe3ea 55%,#22c55e); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
 .subtitle{ font-size:13px; color:var(--muted); margin-top:5px; }
 
@@ -958,7 +955,6 @@ h1{ font-size:21px; font-weight:800; background:linear-gradient(92deg,#eafcff,#7
 <body>
 <div class="wrap">
   <header>
-    <a href="/" style="text-decoration:none"><img class="logo" src="/icon.svg" alt="logo"></a>
     <h1>一键切换定位 · 即刻生效</h1>
     <div class="subtitle">传入高德/苹果/百度/Google 地图分享链直接切换</div>
   </header>

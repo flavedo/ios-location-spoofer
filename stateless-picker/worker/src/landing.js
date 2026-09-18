@@ -8,7 +8,6 @@ export function getLandingHtml() {
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#0a0c11">
 <link rel="apple-touch-icon" href="/icon-180.png">
-<link rel="icon" href="/icon.svg" type="image/svg+xml">
 <style>
 :root{
   --bg:#0a0c11; --card:#12161d; --card2:#191e28; --line:#242b38;
@@ -28,9 +27,7 @@ body{
 .wrap{ max-width:600px; margin:0 auto; padding:20px 16px calc(44px + env(safe-area-inset-bottom)); }
 
 /* --- header / branding --- */
-header{ text-align:center; padding:8px 0 6px; }
-header .logowrap{ position:relative; width:74px; margin:0 auto 14px; }
-header .logo{ width:74px; height:74px; border-radius:20px; display:block; box-shadow:0 0 0 1px var(--line),0 10px 30px rgba(23,195,207,.28); }
+header{ text-align:center; padding:12px 0 6px; }
 h1{ font-size:23px; font-weight:800; letter-spacing:.3px; background:linear-gradient(92deg,#eafcff,#7fe3ea 55%,#22c55e); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
 .credit{ font-size:12px; color:var(--muted); margin-top:9px; line-height:1.7; }
 .credit a{ color:#8fe0e6; text-decoration:none; }
@@ -79,7 +76,6 @@ footer b{ color:#8fe0e6; }
 <body>
 <div class="wrap">
   <header>
-    <div class="logowrap"><img class="logo" src="/icon.svg" alt=""></div>
     <h1>iOS Location Spoofer · 虚拟定位</h1>
     <p class="credit">
       fork from 鸣谢贡献者：<a href="https://github.com/Yu9191/wloc" target="_blank" rel="noopener">Yu9191</a> ·
