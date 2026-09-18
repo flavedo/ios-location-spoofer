@@ -1,0 +1,10 @@
+{
+  "name": "ios-location-spoofer",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "deploy": "npx wrangler deploy",
+    "build": "node stateless-picker/worker/scripts/build-single.mjs"
+  }
+}
