@@ -408,3 +408,22 @@ export function gcj02ToWgs84(lat, lon) {
   }
   return { lat: wgsLat, lon: wgsLon };
 }
+
+// 查询 WGS-84 坐标的海拔 (米), 来源 Open-Meteo elevation API (3秒超时, 容错降级)
+export async function fetchAltitude(lat, lon) {
+  if (!inRange(lat, lon)) return null;
+  try {
+    const url = `https://api.open-meteo.com/v1/elevation?latitude=${lat}&longitude=${lon}`;
+    const resp = await fetch(url, {
+      signal: AbortSignal.timeout(3000),
+      headers: { "accept": "application/json" },
+    });
+    if (!resp.ok) return null;
+    const data = await resp.json();
+    if (data && Array.isArray(data.elevation) && data.elevation.length && data.elevation[0] !== null) {
+      return Math.round(data.elevation[0]);
+    }
+  } catch (e) {}
+  return null;
+}
+

@@ -108,6 +108,7 @@ footer b{ color:#8fe0e6; }
 
   <div class="ctas">
     <a class="enter go" href="/picker">🗺️ 进入选点网页</a>
+    <a class="enter" style="background:linear-gradient(135deg,var(--cyan),var(--cyan2));color:#022a2d;box-shadow:0 10px 26px rgba(23,195,207,.28)" href="/set">⚡ 一键换定位</a>
   </div>
 
   <div class="divider"></div>

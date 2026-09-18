@@ -1,7 +1,7 @@
 import { Hono } from "hono/tiny";
-import { getPageHtml } from "./page.js";
+import { getPageHtml, getSetLocationHtml } from "./page.js";
 import { getLandingHtml } from "./landing.js";
-import { parseCoords, toWgs84, gcj02ToWgs84, round6 } from "./parse.js";
+import { parseCoords, toWgs84, gcj02ToWgs84, round6, fetchAltitude } from "./parse.js";
 import { ICON_180_B64, ICON_512_B64, ICON_SVG, b64ToBytes } from "./icons.js";
 import { LOCATION_SPOOFER_B64, LOCATION_SETTINGS_B64, LOCATION_SPOOFER_QX_B64 } from "./modules.js";
 
@@ -127,20 +127,28 @@ app.get("/ios-location-spoofer.stoverride", (c) => c.body(stoverride(new URL(c.r
 app.get("/ios-location-spoofer.lnplugin", (c) => c.body(lnplugin(new URL(c.req.url).origin), 200, TXT));
 app.get("/ios-location-spoofer.snippet", (c) => c.body(qxsnippet(new URL(c.req.url).origin), 200, TXT));
 
-// Map link parsing: called by the iOS Shortcut.
-// GET /api/parse?u=<link>&format=json&cs=<gcj|none>
-//   Returns {lat, lon, name}; Amap / Apple Maps (both GCJ-02 in mainland China) are auto-converted to WGS84; coordinates outside China are skipped automatically (out_of_china). cs=none forces no conversion.
-//   Without format=json it returns a plain-text "lat=..&lon=.." fragment.
-app.get("/api/parse", async (c) => {
+// Helper to resolve coordinates, elevation, and build the saveUrl for device writing
+async function resolveLocationParams(c) {
   const raw = c.req.query("u") || "";
   const cs = (c.req.query("cs") || "").toLowerCase();
-  const fmt = (c.req.query("format") || "").toLowerCase();
-  try {
-    let { lat, lon, name, src } = await parseCoords(raw);
-    // Normalize every source to WGS-84 at the entrance (hard requirement).
-    // Automatic path uses toWgs84(src): Baidu => BD-09; Amap/Apple/Google => GCJ-02,
-    // EXCEPT Apple/Google in HK/Macau/Taiwan which are already WGS-84 (Yu9191 v1.1).
-    // Explicit cs= overrides still win. All guards no-op outside China.
+  const qLat = c.req.query("lat");
+  const qLon = c.req.query("lon");
+  const qAlt = c.req.query("alt");
+  const qHacc = c.req.query("hacc");
+  const qVacc = c.req.query("vacc");
+  const qRr = c.req.query("rr") || c.req.query("randomRadius");
+
+  if (!raw && (!qLat || !qLon)) {
+    return { empty: true };
+  }
+
+  let lat, lon, name = "", src = "text";
+  if (raw) {
+    const parsed = await parseCoords(raw);
+    lat = parsed.lat;
+    lon = parsed.lon;
+    name = parsed.name || "";
+    src = parsed.src;
     if (cs === "none") {
       // leave coordinates untouched
     } else if (cs === "bd09" || cs === "baidu") {
@@ -150,14 +158,145 @@ app.get("/api/parse", async (c) => {
     } else {
       ({ lat, lon } = toWgs84(lat, lon, src));
     }
-    lat = round6(lat);
-    lon = round6(lon);
-    name = name || "";
-    c.header("Access-Control-Allow-Origin", "*");
-    if (fmt === "json") return c.json({ lat, lon, name });
-    return c.text(`lat=${lat}&lon=${lon}`);
+  } else {
+    lat = parseFloat(qLat);
+    lon = parseFloat(qLon);
+    name = c.req.query("name") || "";
+  }
+
+  lat = round6(lat);
+  lon = round6(lon);
+
+  let alt = null;
+  if (qAlt !== undefined && qAlt !== null && qAlt !== "") {
+    alt = Math.round(Number(qAlt));
+  } else {
+    alt = await fetchAltitude(lat, lon);
+  }
+
+  const hacc = qHacc ? Math.round(Number(qHacc)) : 39;
+  const vacc = qVacc ? Math.round(Number(qVacc)) : 1000;
+  const rr = (qRr !== null && qRr !== undefined && qRr !== "" && !isNaN(Number(qRr))) ? Math.round(Number(qRr)) : null;
+
+  let saveUrl = `https://gs-loc.apple.com/ils-settings/save?lat=${lat}&lon=${lon}`;
+  if (alt !== null && alt !== undefined && !isNaN(alt)) saveUrl += `&alt=${alt}`;
+  if (hacc !== null && !isNaN(hacc)) saveUrl += `&hacc=${hacc}`;
+  if (vacc !== null && !isNaN(vacc)) saveUrl += `&vacc=${vacc}`;
+  if (rr !== null && !isNaN(rr)) saveUrl += `&randomRadius=${rr}`;
+
+  return { success: true, name, lat, lon, alt, hacc, vacc, rr, saveUrl, u: raw };
+}
+
+// Visual One-Click Set Page:
+// GET /set?u=<map-link>
+//   - If visited in browser: shows the one-click setting card and immediately auto-saves to device
+//   - If redirect=1 / set=1: 302 redirects directly to gs-loc.apple.com/ils-settings/save
+//   - If format=json: returns JSON payload
+app.get("/set", async (c) => {
+  c.header("Cache-Control", "no-cache");
+  c.header("Access-Control-Allow-Origin", "*");
+  const fmt = (c.req.query("format") || "").toLowerCase();
+  const doRedirect = c.req.query("redirect") === "1" || c.req.query("set") === "1";
+
+  try {
+    const loc = await resolveLocationParams(c);
+    if (loc.empty) {
+      return c.html(getSetLocationHtml({}));
+    }
+    if (doRedirect) {
+      return c.redirect(loc.saveUrl, 302);
+    }
+    if (fmt === "json") {
+      return c.json({
+        success: true,
+        name: loc.name,
+        lat: loc.lat,
+        lon: loc.lon,
+        alt: loc.alt,
+        hacc: loc.hacc,
+        vacc: loc.vacc,
+        save_url: loc.saveUrl,
+      });
+    }
+    return c.html(getSetLocationHtml(loc));
   } catch (e) {
-    c.header("Access-Control-Allow-Origin", "*");
+    const errMsg = String(e && e.message ? e.message : e);
+    if (fmt === "json") return c.json({ error: errMsg }, 422);
+    return c.html(getSetLocationHtml({ error: errMsg, u: c.req.query("u") || "" }), 422);
+  }
+});
+
+// API One-Click Set:
+// GET /api/set?u=<map-link>
+//   - Default: 302 Redirect to gs-loc.apple.com/ils-settings/save (iOS Shortcuts "Get Contents of URL" saves directly in 1 step!)
+//   - format=json: returns JSON coordinates + save_url
+//   - format=html: returns visual web UI
+app.get("/api/set", async (c) => {
+  c.header("Cache-Control", "no-cache");
+  c.header("Access-Control-Allow-Origin", "*");
+  const fmt = (c.req.query("format") || "").toLowerCase();
+
+  try {
+    const loc = await resolveLocationParams(c);
+    if (loc.empty) {
+      if (fmt === "json") return c.json({ error: "缺少 u 或 lat/lon 参数" }, 400);
+      return c.redirect("/set", 302);
+    }
+    if (fmt === "json") {
+      return c.json({
+        success: true,
+        name: loc.name,
+        lat: loc.lat,
+        lon: loc.lon,
+        alt: loc.alt,
+        hacc: loc.hacc,
+        vacc: loc.vacc,
+        save_url: loc.saveUrl,
+      });
+    }
+    if (fmt === "html") {
+      return c.html(getSetLocationHtml(loc));
+    }
+    return c.redirect(loc.saveUrl, 302);
+  } catch (e) {
+    const errMsg = String(e && e.message ? e.message : e);
+    if (fmt === "html") return c.html(getSetLocationHtml({ error: errMsg, u: c.req.query("u") || "" }), 422);
+    return c.json({ error: errMsg }, 422);
+  }
+});
+
+// Enhanced Map link parsing:
+// GET /api/parse?u=<link>&format=json&set=<1|0>
+//   - Backward compatible: format=json returns {lat, lon, name, alt, save_url}
+//   - set=1 / redirect=1: 302 redirects directly to save_url
+app.get("/api/parse", async (c) => {
+  c.header("Cache-Control", "no-cache");
+  c.header("Access-Control-Allow-Origin", "*");
+  const fmt = (c.req.query("format") || "").toLowerCase();
+  const doSet = c.req.query("set") === "1" || c.req.query("redirect") === "1";
+
+  try {
+    const loc = await resolveLocationParams(c);
+    if (loc.empty) {
+      return c.json({ error: "空输入" }, 400);
+    }
+    if (doSet) {
+      return c.redirect(loc.saveUrl, 302);
+    }
+    if (fmt === "json") {
+      return c.json({
+        success: true,
+        lat: loc.lat,
+        lon: loc.lon,
+        name: loc.name,
+        alt: loc.alt,
+        hacc: loc.hacc,
+        vacc: loc.vacc,
+        save_url: loc.saveUrl,
+      });
+    }
+    return c.text(`lat=${loc.lat}&lon=${loc.lon}`);
+  } catch (e) {
     return c.json({ error: String(e && e.message ? e.message : e) }, 422);
   }
 });

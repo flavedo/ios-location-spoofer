@@ -48,6 +48,7 @@ class Hono {
       json(o, status) { return new Response(JSON.stringify(o), { status: status || 200, headers: { "Content-Type": "application/json", ...this._h } }); },
       text(s, status) { return new Response(s, { status: status || 200, headers: { "Content-Type": "text/plain; charset=utf-8", ...this._h } }); },
       body(b, status, headers) { return new Response(b, { status: status || 200, headers: { ...this._h, ...(headers || {}) } }); },
+      redirect(location, status) { return new Response(null, { status: status || 302, headers: { "Location": location, ...this._h } }); },
     };
     try {
       for (const [m, p, h] of this._routes) { if (m === request.method && url.pathname === p) return await h(c); }

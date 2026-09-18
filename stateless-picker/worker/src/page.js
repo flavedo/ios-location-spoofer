@@ -825,7 +825,305 @@ document.getElementById('favNameInput').addEventListener('keydown', e => { if(e.
 
 applyI18n();
 queryActive();
+try {
+  const _sp = new URLSearchParams(window.location.search);
+  const _qu = _sp.get('u');
+  const _qlat = _sp.get('lat');
+  const _qlon = _sp.get('lon');
+  const _qsave = _sp.get('save') === '1' || _sp.get('auto') === '1';
+  if (_qu) {
+    document.getElementById('urlInput').value = _qu;
+    parseUrl().then(() => { if (_qsave) setTimeout(save, 600); });
+  } else if (_qlat && _qlon) {
+    moveTo(parseFloat(_qlat), parseFloat(_qlon), 15);
+    if (_qsave) setTimeout(save, 600);
+  }
+} catch(e) {}
 <\/script>
 </body>
 </html>`;
 }
+
+function esc(str) {
+  return String(str || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+export function getSetLocationHtml(opts = {}) {
+  const name = opts.name || "";
+  const lat = opts.lat != null ? opts.lat : null;
+  const lon = opts.lon != null ? opts.lon : null;
+  const alt = opts.alt != null ? opts.alt : null;
+  const hacc = opts.hacc || 39;
+  const vacc = opts.vacc || 1000;
+  const saveUrl = opts.saveUrl || "";
+  const u = opts.u || "";
+  const error = opts.error || "";
+  const hasTarget = lat !== null && lon !== null;
+
+  return `<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>${hasTarget ? (name ? esc(name) + ' · ' : '') + '一键生效定位' : '一键切换定位 · iOS Location Spoofer'}</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#0a0c11">
+<link rel="apple-touch-icon" href="/icon-180.png">
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<style>
+:root{
+  --bg:#0a0c11; --card:#12161d; --card2:#191e28; --line:#242b38;
+  --cyan:#17c3cf; --cyan2:#0e97a1; --green:#22c55e; --green2:#159a45;
+  --red:#ff5b60; --amber:#f5a623; --txt:#eef2f8; --muted:#8a93a5; --mono:#7fe3ea;
+}
+*{ margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+body{
+  font-family:-apple-system,system-ui,"SF Pro","Helvetica Neue",sans-serif;
+  color:var(--txt); line-height:1.5;
+  background:
+    radial-gradient(1100px 420px at 50% -140px, rgba(23,195,207,.16), transparent 70%),
+    radial-gradient(700px 360px at 90% 8%, rgba(34,197,94,.08), transparent 65%),
+    var(--bg);
+  background-attachment:fixed;
+  padding:20px 16px calc(44px + env(safe-area-inset-bottom));
+}
+.wrap{ max-width:540px; margin:0 auto; }
+header{ text-align:center; padding:10px 0 18px; }
+.logo{ width:64px; height:64px; border-radius:18px; display:block; margin:0 auto 12px; box-shadow:0 0 0 1px var(--line),0 8px 24px rgba(23,195,207,.25); }
+h1{ font-size:21px; font-weight:800; background:linear-gradient(92deg,#eafcff,#7fe3ea 55%,#22c55e); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+.subtitle{ font-size:13px; color:var(--muted); margin-top:5px; }
+
+.card{ background:var(--card); border:1px solid var(--line); border-radius:16px; padding:18px; margin-bottom:16px; box-shadow:0 4px 20px rgba(0,0,0,.25); }
+.card-title{ font-size:14px; font-weight:700; color:var(--cyan); letter-spacing:.5px; margin-bottom:12px; display:flex; align-items:center; gap:8px; }
+
+/* Status section */
+.status-box{ border-radius:14px; padding:16px; margin-bottom:16px; display:flex; gap:14px; align-items:flex-start; border:1px solid var(--line); background:var(--card2); transition:all .3s ease; }
+.status-icon{ width:42px; height:42px; border-radius:12px; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:20px; font-weight:bold; }
+.status-text{ flex:1; min-width:0; }
+.status-title{ font-size:15.5px; font-weight:700; margin-bottom:4px; }
+.status-desc{ font-size:12.5px; color:var(--muted); line-height:1.6; }
+
+/* State variants */
+.state-loading .status-box{ border-color:var(--cyan); background:rgba(23,195,207,.08); }
+.state-loading .status-icon{ background:rgba(23,195,207,.2); color:var(--cyan); animation:pulse 1.4s infinite; }
+.state-success .status-box{ border-color:var(--green); background:rgba(34,197,94,.1); }
+.state-success .status-icon{ background:var(--green); color:#04240f; box-shadow:0 4px 14px rgba(34,197,94,.4); }
+.state-error .status-box{ border-color:var(--amber); background:rgba(245,166,35,.1); }
+.state-error .status-icon{ background:var(--amber); color:#2b1800; }
+
+@keyframes pulse{ 0%,100%{ opacity:1; transform:scale(1); } 50%{ opacity:.65; transform:scale(.95); } }
+
+/* Meta info grid */
+.meta-grid{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:14px 0; }
+.meta-cell{ background:var(--bg); border:1px solid var(--line); border-radius:10px; padding:10px 12px; }
+.meta-label{ font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:.5px; margin-bottom:3px; }
+.meta-val{ font-size:13.5px; font-weight:600; color:var(--txt); word-break:break-all; font-family:"SF Mono",ui-monospace,monospace; }
+.meta-full{ grid-column:span 2; }
+.poi-name{ font-size:18px; font-weight:800; color:#fff; margin-bottom:2px; word-break:break-all; }
+
+/* Buttons */
+.btn-group{ display:flex; flex-direction:column; gap:10px; margin-top:16px; }
+.btn{ display:flex; align-items:center; justify-content:center; gap:8px; padding:13px 16px; border-radius:12px; font-size:14.5px; font-weight:700; text-decoration:none; cursor:pointer; border:none; transition:transform .12s,filter .12s; }
+.btn:active{ transform:scale(.98); }
+.btn-primary{ background:linear-gradient(135deg,var(--green),var(--green2)); color:#04240f; box-shadow:0 6px 18px rgba(34,197,94,.3); }
+.btn-cyan{ background:linear-gradient(135deg,var(--cyan),var(--cyan2)); color:#022a2d; box-shadow:0 6px 18px rgba(23,195,207,.25); }
+.btn-secondary{ background:var(--card2); border:1px solid var(--line); color:var(--txt); }
+.btn-secondary:active{ background:#252d3d; }
+
+/* Form inputs */
+.input-row{ display:flex; gap:8px; margin-top:10px; }
+.text-input{ flex:1; min-width:0; background:var(--bg); border:1px solid var(--line); border-radius:10px; padding:12px 14px; color:var(--txt); font-size:14px; outline:none; transition:border-color .15s; }
+.text-input:focus{ border-color:var(--cyan); }
+.quick-link{ font-size:12px; color:var(--cyan); text-decoration:none; display:inline-block; margin-top:8px; cursor:pointer; }
+.quick-link:hover{ text-decoration:underline; }
+
+/* Info / Guide Box */
+.guide{ background:var(--card); border:1px solid var(--line); border-radius:14px; padding:15px; margin-top:16px; font-size:12.5px; color:#c3ccdb; line-height:1.75; }
+.guide-title{ font-size:13px; font-weight:700; color:var(--cyan); margin-bottom:8px; display:flex; align-items:center; gap:6px; }
+.guide ol{ padding-left:18px; margin:6px 0; }
+.guide li{ margin-bottom:5px; }
+.guide code{ font-family:"SF Mono",ui-monospace,monospace; background:var(--bg); padding:2px 6px; border-radius:5px; font-size:11.5px; color:var(--mono); border:1px solid var(--line); word-break:break-all; }
+
+.err-banner{ background:rgba(255,91,96,.12); border:1px solid var(--red); border-radius:12px; padding:12px 14px; font-size:13px; color:#ff9fa2; margin-bottom:16px; }
+
+.toast{ position:fixed; left:50%; bottom:35px; transform:translateX(-50%) translateY(20px); background:rgba(8,10,14,.92); color:#fff; padding:10px 18px; border-radius:20px; font-size:13.5px; opacity:0; transition:all .25s; pointer-events:none; z-index:99; border:1px solid var(--line); }
+.toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a href="/" style="text-decoration:none"><img class="logo" src="/icon.svg" alt="logo"></a>
+    <h1>一键切换定位 · 即刻生效</h1>
+    <div class="subtitle">传入高德/苹果/百度/Google 地图分享链直接切换</div>
+  </header>
+
+  ${error ? `
+  <div class="err-banner">
+    <b>解析失败：</b>${esc(error)}
+  </div>` : ''}
+
+  ${hasTarget ? `
+  <div class="card">
+    <div id="statusContainer" class="state-loading">
+      <div class="status-box">
+        <div class="status-icon" id="statusIcon">⏳</div>
+        <div class="status-text">
+          <div class="status-title" id="statusTitle">正在写入设备并生效...</div>
+          <div class="status-desc" id="statusDesc">正在向本机代理模块发送写入请求，生效后各应用将立即识别新定位。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="meta-grid">
+      <div class="meta-cell meta-full">
+        <div class="meta-label">地点名称</div>
+        <div class="poi-name">${name ? esc(name) : '目标位置'}</div>
+      </div>
+      <div class="meta-cell">
+        <div class="meta-label">WGS-84 纬度 (LAT)</div>
+        <div class="meta-val">${lat.toFixed(6)}</div>
+      </div>
+      <div class="meta-cell">
+        <div class="meta-label">WGS-84 经度 (LON)</div>
+        <div class="meta-val">${lon.toFixed(6)}</div>
+      </div>
+      <div class="meta-cell">
+        <div class="meta-label">真实地形海拔 (ALT)</div>
+        <div class="meta-val">${alt !== null ? alt + ' 米' : '默认 (0m)'}</div>
+      </div>
+      <div class="meta-cell">
+        <div class="meta-label">定位精度参数</div>
+        <div class="meta-val">±${hacc}m (高精度)</div>
+      </div>
+      ${u ? `
+      <div class="meta-cell meta-full">
+        <div class="meta-label">原始分享链接</div>
+        <div class="meta-val" style="font-size:11.5px;color:var(--muted)">${esc(u)}</div>
+      </div>` : ''}
+    </div>
+
+    <div class="btn-group">
+      <a href="/picker?lat=${lat}&lon=${lon}" class="btn btn-cyan">🗺️ 在地图选点页查看</a>
+      <button class="btn btn-primary" onclick="saveToDevice()">🔄 重新写入生效</button>
+      <button class="btn btn-secondary" onclick="copyApiUrl()">⚡ 复制快捷指令自动化链接</button>
+      <button class="btn btn-secondary" onclick="toggleForm()">📍 切换其他分享链接</button>
+    </div>
+  </div>
+  ` : ''}
+
+  <div class="card" id="inputDrawer" style="${hasTarget ? 'display:none' : ''}">
+    <div class="card-title">📍 输入地图分享链接</div>
+    <div class="input-row">
+      <input id="newUrlInput" class="text-input" placeholder="粘贴高德短链（例如 https://surl.amap.com/...）" value="${esc(u)}" />
+      <button class="btn btn-cyan" style="flex:none;padding:0 18px" onclick="submitNewUrl()">切换</button>
+    </div>
+    <div style="margin-top:8px">
+      <span class="quick-link" onclick="fillExample()">试一试：高德短链（厦门市东渡小学）</span>
+    </div>
+  </div>
+
+  <div class="guide">
+    <div class="guide-title">⚡ 配合 iOS「快捷指令」实现一键自动切换</div>
+    <div>在 iPhone「快捷指令」中可配置自动化，点一下或复制高德分享后自动换定位：</div>
+    <ol>
+      <li>新建快捷指令，添加动作<b>「获取 URL 的内容」</b>。</li>
+      <li>URL 填入：<code>${typeof location !== 'undefined' ? location.origin : ''}/api/set?u=【高德分享链接】</code></li>
+      <li>执行该动作时将自动 302 重定向到本机配置接口并写入设备，<b>全自动 1 秒生效！</b></li>
+    </ol>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const SAVE_URL = ${JSON.stringify(saveUrl)};
+const HAS_TARGET = ${JSON.stringify(hasTarget)};
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+async function saveToDevice() {
+  if (!SAVE_URL) return;
+  const c = document.getElementById('statusContainer');
+  const icon = document.getElementById('statusIcon');
+  const title = document.getElementById('statusTitle');
+  const desc = document.getElementById('statusDesc');
+
+  c.className = 'state-loading';
+  icon.textContent = '⏳';
+  title.textContent = '正在写入本机设备...';
+  desc.textContent = '正在向代理软件发送配置，无需服务器中转。';
+
+  try {
+    const r = await fetch(SAVE_URL, { method: 'GET', mode: 'cors', cache: 'no-store' });
+    const d = await r.json();
+    if (d && d.success) {
+      c.className = 'state-success';
+      icon.textContent = '✓';
+      title.textContent = '定位已成功切换并生效！';
+      desc.textContent = '目标坐标已写入本机存储，App 即刻生效。若未及时刷新，可开关一次飞行模式。';
+      showToast('✓ 定位写入成功');
+    } else {
+      throw new Error(d && d.error ? d.error : '配置未能写入');
+    }
+  } catch(e) {
+    c.className = 'state-error';
+    icon.textContent = '⚠️';
+    title.textContent = '未能连接到本机配置服务';
+    desc.textContent = '请确认已开启代理工具（Shadowrocket / Surge / Loon 等）并已启用模块与 MITM 证书。';
+    showToast('⚠️ 未能写入本机，请检查代理状态');
+  }
+}
+
+function submitNewUrl() {
+  const val = document.getElementById('newUrlInput').value.trim();
+  if (!val) { showToast('请先输入或粘贴地图链接'); return; }
+  window.location.href = '/set?u=' + encodeURIComponent(val);
+}
+
+function fillExample() {
+  document.getElementById('newUrlInput').value = 'https://surl.amap.com/5tzQPeOZ9yA';
+  submitNewUrl();
+}
+
+function toggleForm() {
+  const el = document.getElementById('inputDrawer');
+  el.style.display = el.style.display === 'none' ? 'block' : 'none';
+  if (el.style.display !== 'none') {
+    document.getElementById('newUrlInput').focus();
+  }
+}
+
+function copyApiUrl() {
+  const origin = window.location.origin;
+  const curU = ${JSON.stringify(u)};
+  const apiUrl = origin + '/api/set?u=' + encodeURIComponent(curU || 'https://surl.amap.com/5tzQPeOZ9yA');
+  navigator.clipboard.writeText(apiUrl).then(() => {
+    showToast('✓ 快捷指令链接已复制到剪贴板');
+  }).catch(() => {
+    prompt('请长按复制链接：', apiUrl);
+  });
+}
+
+document.getElementById('newUrlInput')?.addEventListener('keydown', e => {
+  if (e.key === 'Enter') submitNewUrl();
+});
+
+if (HAS_TARGET) {
+  saveToDevice();
+}
+<\/script>
+</body>
+</html>`;
+}
+

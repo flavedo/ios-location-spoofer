@@ -71,6 +71,22 @@
 
 恢复真实定位：点选点页的「清除数据」（写 `enabled=false`），或关闭模块。
 
+### 3. 一键切换定位与地图短链直接生效 ⚡
+
+无需每次手动点地图，直接传入高德/苹果/百度/Google 地图分享链接（含短链，如 `https://surl.amap.com/5tzQPeOZ9yA`）：
+
+- **网页一键切换**：在 Safari 浏览器中直接打开 `https://你的worker域名/set?u=https://surl.amap.com/5tzQPeOZ9yA`
+  - 自动展开短链提取 POI 地名与坐标
+  - 自动将大陆坐标从 GCJ-02 反算为 WGS-84
+  - 自动查询 Open-Meteo 真实地形海拔
+  - 网页 JS 自动向本机代理接口发送写入请求并即刻生效！
+- **iOS「快捷指令」一步自动化**：
+  - 动作「获取 URL 的内容」：`https://你的worker域名/api/set?u=[快捷指令输入]`
+  - 服务端直接返回 HTTP 302 重定向到 `https://gs-loc.apple.com/ils-settings/save?lat=...&lon=...&alt=...`，快捷指令跟随跳转被本机代理拦截，**一键 1 秒全自动写入！**
+- **JSON API 接口**：
+  - `GET /api/set?u=...&format=json` 或 `GET /api/parse?u=...&format=json`
+  - 返回 `{ success: true, name: "厦门市东渡小学", lat: 24.49104, lon: 118.080365, alt: 46, hacc: 39, vacc: 1000, save_url: "..." }`
+
 ---
 
 ## 自部署选点页 worker
