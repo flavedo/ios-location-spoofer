@@ -27,13 +27,6 @@ body{
 }
 .wrap{ max-width:600px; margin:0 auto; padding:20px 16px calc(44px + env(safe-area-inset-bottom)); }
 
-/* --- disclaimer --- */
-.disc{ background:var(--card); border:1px solid var(--line); border-radius:12px; padding:13px 16px; margin-bottom:18px; }
-.disc-t{ font-size:13px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:var(--cyan); margin-bottom:9px; }
-.disc-list{ margin:0; padding-left:17px; }
-.disc-list li{ font-size:12px; color:var(--muted); line-height:1.75; margin-bottom:6px; }
-.disc-list li b{ color:#c3ccdb; }
-
 /* --- header / branding --- */
 header{ text-align:center; padding:8px 0 6px; }
 header .logowrap{ position:relative; width:74px; margin:0 auto 14px; }
@@ -85,16 +78,6 @@ footer b{ color:#8fe0e6; }
 </head>
 <body>
 <div class="wrap">
-  <div class="disc">
-    <div class="disc-t">免责声明</div>
-    <ol class="disc-list">
-      <li>本项目<b>仅供个人学习、研究与技术测试之用</b>，请勿用于任何违反所在国家/地区法律法规的用途。</li>
-      <li>使用本项目（含模块、脚本、选点页）所引发的<b>一切风险与后果，由使用者自行承担</b>，与开源项目原作者、贡献者及本页面维护者无关。</li>
-      <li>本项目与 <b>Apple Inc.</b> 无任何关联，不隶属、不代表 Apple，亦未获其授权或认可。</li>
-      <li>下载、安装或使用本项目，即视为你已阅读并同意本声明；如不同意，请立即停止使用。</li>
-    </ol>
-  </div>
-
   <header>
     <div class="logowrap"><img class="logo" src="/icon.svg" alt=""></div>
     <h1>iOS Location Spoofer · 虚拟定位</h1>
@@ -132,7 +115,7 @@ footer b{ color:#8fe0e6; }
 
   <footer>
     坐标只存在你<b>当前设备</b>上，服务端不留存记录。<br>
-    GNU AGPL-3.0 · 仅供学习研究
+    GNU AGPL-3.0
   </footer>
 </div>
 <div class="toast" id="toast"></div>
