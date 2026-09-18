@@ -1084,7 +1084,7 @@ async function saveToDevice() {
 function submitNewUrl() {
   const val = document.getElementById('newUrlInput').value.trim();
   if (!val) { showToast('请先输入或粘贴地图链接'); return; }
-  window.location.href = '/set?u=' + encodeURIComponent(val);
+  window.location.href = '/set?format=html&u=' + encodeURIComponent(val);
 }
 
 function fillExample() {

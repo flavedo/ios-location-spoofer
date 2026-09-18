@@ -1585,7 +1585,7 @@ async function saveToDevice() {
 function submitNewUrl() {
   const val = document.getElementById('newUrlInput').value.trim();
   if (!val) { showToast('请先输入或粘贴地图链接'); return; }
-  window.location.href = '/set?u=' + encodeURIComponent(val);
+  window.location.href = '/set?format=html&u=' + encodeURIComponent(val);
 }
 
 function fillExample() {
@@ -1949,11 +1949,12 @@ async function resolveLocationParams(c) {
   return { success: true, name, lat, lon, alt, hacc, vacc, rr, saveUrl, u: raw };
 }
 
-// Visual One-Click Set Page:
+// One-Click Set Route:
 // GET /set?u=<map-link>
-//   - If visited in browser: shows the one-click setting card and immediately auto-saves to device
+//   - Default with `u`: returns JSON payload with lat, lon, name, alt, save_url
+//   - If format=html: returns visual web UI
 //   - If redirect=1 / set=1: 302 redirects directly to gs-loc.apple.com/ils-settings/save
-//   - If format=json: returns JSON payload
+//   - If no params: returns the visual input page
 app.get("/set", async (c) => {
   c.header("Cache-Control", "no-cache");
   c.header("Access-Control-Allow-Origin", "*");
@@ -1968,23 +1969,23 @@ app.get("/set", async (c) => {
     if (doRedirect) {
       return c.redirect(loc.saveUrl, 302);
     }
-    if (fmt === "json") {
-      return c.json({
-        success: true,
-        name: loc.name,
-        lat: loc.lat,
-        lon: loc.lon,
-        alt: loc.alt,
-        hacc: loc.hacc,
-        vacc: loc.vacc,
-        save_url: loc.saveUrl,
-      });
+    if (fmt === "html") {
+      return c.html(getSetLocationHtml(loc));
     }
-    return c.html(getSetLocationHtml(loc));
+    return c.json({
+      lat: loc.lat,
+      lon: loc.lon,
+      name: loc.name,
+      alt: loc.alt,
+      hacc: loc.hacc,
+      vacc: loc.vacc,
+      save_url: loc.saveUrl,
+      success: true,
+    });
   } catch (e) {
     const errMsg = String(e && e.message ? e.message : e);
-    if (fmt === "json") return c.json({ error: errMsg }, 422);
-    return c.html(getSetLocationHtml({ error: errMsg, u: c.req.query("u") || "" }), 422);
+    if (fmt === "html") return c.html(getSetLocationHtml({ error: errMsg, u: c.req.query("u") || "" }), 422);
+    return c.json({ error: errMsg }, 422);
   }
 });
 
