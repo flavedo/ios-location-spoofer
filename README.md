@@ -1,9 +1,9 @@
 # iOS Location Spoofer
 
-## 🚀 一键部署你自己的选点页
+## 🚀 一键部署你自己的控制台
 
 点击下面的按钮，登录 Cloudflare 后一路下一步，
-**30 秒**就能部署一份**属于你自己的**选点页（Cloudflare 免费额度完全够用）：
+**30 秒**就能部署一份**属于你自己的**控制台（Cloudflare 免费额度完全够用）：
 
 [![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/flavedo/ios-location-spoofer/tree/main/stateless-picker/worker)
 
@@ -32,7 +32,7 @@
 
 ## 📦 模块安装地址
 
-推荐在选点页首页点「一键导入」，或手动添加下面的地址：
+推荐在网页端首页点「一键导入」，或手动添加下面的地址：
 
 | 客户端 | 模块地址 |
 |---|---|
@@ -56,7 +56,7 @@ bluedot.is.autonavi.com.gds.alibabadns.com
 
 iPhone 靠周围 Wi-Fi、基站的 BSSID 去问 Apple「这些设备在哪」，Apple 回一份坐标清单，iOS 据此算出自己的位置。
 
-本模块在 **Apple 回坐标的半路上**（`gs-loc.apple.com/clls/wloc`）把响应里的坐标全部改成你指定的数字，iPhone 算出来就是你选的地方。选点页则通过 `ils-settings` 请求把坐标写进**你手机本机**的持久化存储，模块读取后生效——**全程不经过任何服务器**。
+本模块在 **Apple 回坐标的半路上**（`gs-loc.apple.com/clls/wloc`）把响应里的坐标全部改成你指定的数字，iPhone 算出来就是你选的地方。网页端则通过 `ils-settings` 请求把坐标写进**你手机本机**的持久化存储，模块读取后生效——**全程不经过任何服务器**。
 
 ---
 

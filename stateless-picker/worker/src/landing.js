@@ -80,7 +80,7 @@ footer b{ color:#8fe0e6; }
 <body>
 <div class="wrap">
   <div class="ctas-grid">
-    <a class="cta-btn green" href="/picker">🗺️ 进入选点网页</a>
+    <a class="cta-btn green" href="/picker">🗺️ 进入地图</a>
     <a class="cta-btn cyan" href="/set">⚡ 一键换定位</a>
     <a class="cta-btn coral" href="https://www.icloud.com/shortcuts/b60615c5ac5a401a9bf56de4f55c1dbb" target="_blank" rel="noopener">🧹 清除定位</a>
     <a class="cta-btn blue" href="https://www.icloud.com/shortcuts/1365464980fd430fb6a7c1e591eb564c" target="_blank" rel="noopener">📍 分享定位</a>
@@ -90,7 +90,7 @@ footer b{ color:#8fe0e6; }
 
   <h2>安装模块</h2>
   <p class="sub">选你的代理客户端，点「一键导入」直接装；或「复制」手动添加。</p>
-  <div class="note">📍 生效前提：① 代理 App 已连接（开关/引擎打开、<b>非「直连」模式</b>）；② 开启 HTTPS 解密(MITM) 并信任证书；③ 装好对应客户端的模块。之后打开选点页选位置、点「储存到设备」即可生效。iOS 26+ 切换后可能需重启一次设备清缓存。</div>
+  <div class="note">📍 生效前提：① 代理 App 已连接（开关/引擎打开、<b>非「直连」模式</b>）；② 开启 HTTPS 解密(MITM) 并信任证书；③ 装好对应客户端的模块。之后打开地图选择位置、点「储存到设备」即可生效。iOS 26+ 切换后可能需重启一次设备清缓存。</div>
 
   <div id="plats"></div>
 

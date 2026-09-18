@@ -149,7 +149,7 @@ body {
 <body>
 <div class="topbar">
   <a class="back" href="/">← 主页</a>
-  <span class="topcredit">iOS Location Spoofer <span class="forkline">· 虚拟定位选点</span></span>
+  <span class="topcredit">iOS Location Spoofer</span>
 </div>
 <div style="position:relative">
 <div id="map"></div>
@@ -260,7 +260,7 @@ let savedLon = null, savedLat = null, savedTimeStr = '';
 /* ---- i18n ---- */
 const I18N = {
   zh: {
-    title: 'iOS 虚拟定位',
+    title: 'iOS Location',
     layer_satellite: '卫星', layer_amap: '高德', layer_color: '彩色', layer_standard: '标准', layer_dark: '暗色',
     err_html: '<b>模块未生效</b>请检查以下配置：<br>1. 已安装并启用 iOS Location Spoofer 模块<br>2. MITM 已开启且信任证书<br>3. MITM 主机名包含 gs-loc.apple.com<br>4. 当前网络已走代理',
     choose_title: '选择目标位置',
@@ -283,7 +283,7 @@ const I18N = {
     search_title: '搜索地点', search_ph: '搜地名，回车列出候选（只预览，不改定位）', search: '搜索',
     status_hint: '选好位置后点击「储存到设备」写入代理工具',
     modal_title: '收藏此位置', modal_ph: '输入备注名称（如: 公司、家）', cancel: '取消', save_short: '保存',
-    acc: '精度', restore: '恢复真实定位', restored: '✓ 虚拟定位已清除，定位服务开关关闭后，关掉代理开关，等待至少 10 秒钟，再次开启生效', hacc: '水平精度', vacc: '垂直精度', jitter: '扰动半径(米)',
+    acc: '精度', restore: '恢复真实定位', restored: '✓ 位置已恢复，定位服务开关关闭后，关掉代理开关，等待至少 10 秒钟，再次开启生效', hacc: '水平精度', vacc: '垂直精度', jitter: '扰动半径(米)',
     querying: '查询中...', no_saved: '无已保存的坐标', query_failed: '查询失败 (需要代理模块支持)', cleared: '已清除',
     fav_empty: '暂无收藏，选好位置后点击「收藏位置」',
     active_now: '✓ 当前生效', del: '删除',
@@ -1005,7 +1005,7 @@ h1{ font-size:21px; font-weight:800; background:linear-gradient(92deg,#eafcff,#7
     </div>
 
     <div class="btn-group">
-      <a href="/picker?lat=${lat}&lon=${lon}" class="btn btn-cyan">🗺️ 在地图选点页查看</a>
+      <a href="/picker?lat=${lat}&lon=${lon}" class="btn btn-cyan">🗺️ 在地图中查看</a>
       <button class="btn btn-primary" onclick="saveToDevice()">🔄 重新写入生效</button>
       <button class="btn btn-secondary" onclick="copyApiUrl()">⚡ 复制快捷指令自动化链接</button>
       <button class="btn btn-secondary" onclick="toggleForm()">📍 切换其他分享链接</button>

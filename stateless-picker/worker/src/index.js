@@ -51,7 +51,7 @@ app.get("/location-spoofer-qx.js", (c) => c.body(b64ToBytes(LOCATION_SPOOFER_QX_
 
 function sgmodule(origin) {
   return String.raw`#!name=iOS Location Spoofer (Stateless)
-#!desc=无状态版：坐标写入每台设备各自的本机存储、可公开共用、多人互不覆盖。搭配选点页使用。适用于 Shadowrocket / Surge / Egern。
+#!desc=无状态版：坐标写入每台设备各自的本机存储、可公开共用、多人互不覆盖。搭配网页端使用。适用于 Shadowrocket / Surge / Egern。
 #!homepage=${origin}
 
 [Script]
@@ -95,7 +95,7 @@ script-providers:
 }
 function lnplugin(origin) {
   return String.raw`#!name=iOS Location Spoofer (Stateless)
-#!desc=无状态版，配合选点页使用。Loon 插件。
+#!desc=无状态版，配合网页端使用。Loon 插件。
 #!homepage=${origin}
 
 [Script]
@@ -323,7 +323,7 @@ app.post("/tg", async (c) => {
   const cmd = text.trim().split(/\s+/)[0].split("@")[0].toLowerCase();
   if (token && chatId && (cmd === "/link" || cmd === "/links" || cmd === "/start")) {
     const origin = new URL(c.req.url).origin;
-    const reply = "📍 iOS 虚拟定位 · 选点主页\n" + origin + "/";
+    const reply = "📍 iOS Location\n" + origin + "/";
     await fetch("https://api.telegram.org/bot" + token + "/sendMessage", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
