@@ -4,20 +4,12 @@
 
 Use the HTTPS-decryption (MITM) feature of a proxy app to trick Apple's location service — and therefore Apple Maps — into placing your iPhone anywhere in the world.
 
-> ✅ **Synced with upstream [Yu9191/wloc v1.1](https://github.com/Yu9191/wloc/releases)**: random jitter radius (each fix is randomly offset within N metres of the target so results are never identical) · Hong Kong / Macau / Taiwan coordinates (Apple/Google emit WGS-84 there, so no more wrong GCJ reverse-shift) · Baidu link parsing · Amap `position=` lon/lat order fix. Set the jitter radius on the picker page.
-
-> 📖 **New here?** The step-by-step walkthrough is Chinese-only for now → [使用教程.md](使用教程.md) (install, configure, verify, and troubleshooting).
->
-> 🗺️ **Online map picker (stateless, shareable by many)** → **https://cyberhandyman-ioslocspo.cyberhandyman.workers.dev**
->
-> Tap the map → auto altitude → one tap writes to your own device. Coordinates live only on **each device**, never on the server, so one URL can be shared by any number of people without overwriting each other. Pair it with the [**stateless module (stateless-picker/)**](stateless-picker/README.md) (setup & self-hosting there).
-
 ## 🚀 Deploy your own picker in one click
 
-Don't want to rely on my URL? Click the button below, sign in to Cloudflare and click through —
+Click the button below, sign in to Cloudflare and click through —
 you'll have **your own** picker running in about **30 seconds** (well within the free tier):
 
-[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/cyberhandyman/ios-location-spoofer/tree/main/stateless-picker/worker)
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/flavedo/ios-location-spoofer/tree/main/stateless-picker/worker)
 
 You'll get your own URL (like `https://xxx.your-account.workers.dev`). It serves all the module
 files itself, and the "one-tap install" buttons on its home page **automatically point at your own

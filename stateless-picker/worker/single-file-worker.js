@@ -520,24 +520,10 @@ body {
 ::-webkit-scrollbar-thumb { background:#2b3342; border-radius:3px; }
 
 /* ---- top bar: sticky glass ---- */
-.topbar { position:sticky; top:0; z-index:1200; display:flex; align-items:center; gap:10px; padding:9px 12px; background:rgba(10,12,17,.82); -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px); border-bottom:1px solid var(--line); font-size:11px; color:var(--muted); }
-.topbar .back { flex:none; color:var(--cyan); font-weight:700; text-decoration:none; }
-.topbar .topcredit { flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.topbar .topcredit a { color:#8fe0e6; text-decoration:none; font-weight:700; }
-.topbar .topcredit .ytname { font-size:13.5px; font-weight:800; color:#ff6b70; text-shadow:0 0 14px rgba(255,91,96,.4); }
-.topbar .topcredit .forkline { font-size:10.5px; color:#6b7484; }
-.topbar .topcredit .forkline .v11 { color:#22c55e; font-weight:700; }
-.topbar .tg { flex:none; color:#5cb8e8; font-weight:700; text-decoration:none; padding:3px 9px; border:1px solid rgba(42,171,238,.45); border-radius:20px; }
-.topbar .tg:active { background:rgba(42,171,238,.14); }
-
-/* ---- video tutorial CTA ---- */
-.vidbtn { display:flex; align-items:center; justify-content:center; gap:8px; margin:12px 12px 0; padding:15px; border-radius:13px; background:transparent; color:#ff6b70; border:1.5px solid rgba(255,91,96,.6); font-size:16px; font-weight:800; text-decoration:none; letter-spacing:.3px; transition:all .12s; }
-.vidbtn:active { background:rgba(255,91,96,.12); transform:scale(.98); }
-
-/* ---- anti-resale box: red bar + tint (matches landing) ---- */
-.redbox { margin:12px 12px 0; padding:14px 16px; background:linear-gradient(180deg,rgba(255,91,96,.16),rgba(255,91,96,.06)); border:1px solid rgba(255,91,96,.5); border-left:5px solid var(--red); border-radius:12px; }
-.redbox .rt { color:#ff6b70; font-size:17px; font-weight:800; line-height:1.4; letter-spacing:.3px; }
-.redbox .rb { color:#ffdcdc; font-size:13.5px; font-weight:700; line-height:1.7; margin-top:8px; }
+.topbar { position:sticky; top:0; z-index:1200; display:flex; align-items:center; gap:10px; padding:10px 14px; background:rgba(10,12,17,.82); -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px); border-bottom:1px solid var(--line); font-size:12px; color:var(--muted); }
+.topbar .back { flex:none; color:var(--cyan); font-weight:700; text-decoration:none; font-size:13px; }
+.topbar .topcredit { flex:1; min-width:0; font-weight:700; color:var(--txt); font-size:13px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.topbar .topcredit .forkline { font-size:11px; color:#6b7484; font-weight:normal; margin-left:6px; }
 
 /* ---- map + its glass controls ---- */
 #map { height:50vh; width:100%; min-height:250px; background:#0a0c11; border-bottom:1px solid var(--line); }
@@ -601,11 +587,6 @@ body {
 .error-banner { background:linear-gradient(180deg,rgba(255,91,96,.18),rgba(255,91,96,.08)); border:1px solid rgba(255,91,96,.5); border-left:4px solid var(--red); color:#ffdcdc; padding:14px 16px; border-radius:12px; margin-bottom:12px; font-size:13.5px; line-height:1.6; display:none; }
 .error-banner b { display:block; margin-bottom:4px; color:#ff6b70; font-size:14.5px; }
 
-/* --- tiled diagonal watermark (continuous, self-restoring, never blocks the map) --- */
-.wm { position:fixed; inset:0; z-index:9998; pointer-events:none; overflow:hidden; user-select:none; -webkit-user-select:none; }
-.wm-i { position:absolute; inset:-60%; display:flex; flex-wrap:wrap; align-content:flex-start; transform:rotate(-24deg); opacity:.11; }
-.wm-i span { flex:none; padding:26px 30px; font-size:17.5px; font-weight:800; white-space:nowrap; color:#8fe0e6; letter-spacing:.4px; text-shadow:0 1px 3px rgba(0,0,0,.5); }
-
 .toast { position:fixed; top:60px; left:50%; transform:translateX(-50%); background:rgba(8,10,14,.92); -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px); border:1px solid var(--line); color:#fff; padding:11px 20px; border-radius:22px; font-size:14px; opacity:0; transition:opacity .3s; pointer-events:none; z-index:9999; max-width:90vw; text-align:center; box-shadow:0 8px 28px rgba(0,0,0,.5); }
 .toast.show { opacity:1; }
 
@@ -651,14 +632,8 @@ body {
 <body>
 <div class="topbar">
   <a class="back" href="/">← 主页</a>
-  <span class="topcredit">📺 <a class="ytname" href="https://www.youtube.com/@CyberHandyman/videos" target="_blank" rel="noopener">YouTube CyberHandyman 赛博工具人</a><span class="forkline"> · fork from 鸣谢贡献者: Yu9191 / mekos2772 / acheong08 <span class="v11">· 已同步 Yu9191 v1.1</span></span></span>
-  <a class="tg" href="https://t.me/cyberhandymancngroup" target="_blank" rel="noopener">✈️ TG群</a>
+  <span class="topcredit">iOS Location Spoofer <span class="forkline">· 虚拟定位选点</span></span>
 </div>
-<div class="redbox">
-  <div class="rt">⚠️ 免费开源 · 禁止售卖</div>
-  <div class="rb"><b>如果你是通过付款来到本页面，请立即联系退款。</b>任何售卖本项目/模块的都是骗子，一经发现立即删库，血本无归！！！！<br>仅供学习研究，禁止违法用途，后果自负、与作者无关，与 Apple 无关。</div>
-</div>
-<a class="vidbtn" href="https://youtu.be/EspuRlKWUxc" target="_blank" rel="noopener" data-i18n="video_btn">▶️ 视频教程（YouTube）</a>
 <div style="position:relative">
 <div id="map"></div>
 <div class="lang-switch">
@@ -807,7 +782,6 @@ const I18N = {
     saving: '储存中...', saved: '✓ 已储存',
     written: function(lo, la, ts){ return '✓ 已写入: ' + lo.toFixed(6) + ', ' + la.toFixed(6) + ' · ' + ts; },
     saved_toast: '✓ 坐标已成功写入模块，定位服务关闭开关，等待至少 10 秒钟，再次开启生效',
-    video_btn: '▶️ 视频教程（YouTube）',
     save_failed: '✗ 储存失败 - 请检查模块配置', write_failed: '写入失败',
     no_geo: '浏览器不支持定位', getting_loc: '获取位置中...', got_loc: '已获取当前位置',
     loc_failed: function(m){ return '定位失败: ' + m; },
@@ -858,7 +832,6 @@ const I18N = {
     saving: 'Saving...', saved: '✓ Saved',
     written: function(lo, la, ts){ return '✓ Written: ' + lo.toFixed(6) + ', ' + la.toFixed(6) + ' · ' + ts; },
     saved_toast: '✓ Coordinates written to the module. Turn Location Services OFF, wait at least 10 seconds, then turn it back ON to take effect.',
-    video_btn: '▶️ Video tutorial (YouTube)',
     save_failed: '✗ Save failed - please check the module configuration', write_failed: 'Write failed',
     no_geo: 'Browser does not support geolocation', getting_loc: 'Getting location...', got_loc: 'Current location acquired',
     loc_failed: function(m){ return 'Location failed: ' + m; },
@@ -1332,30 +1305,6 @@ document.getElementById('searchInput').addEventListener('keydown', e => { if(e.k
 document.getElementById('urlInput').addEventListener('keydown', e => { if(e.key==='Enter') parseUrl(); });
 document.getElementById('favNameInput').addEventListener('keydown', e => { if(e.key==='Enter') confirmFav(); });
 
-/* ---- Watermark: tiled, non-interactive, rebuilt if tampered with ---- */
-const WM_TEXT = 'YouTube：赛博工具人 @CyberHandyman 根据GitHub开源项目制作';
-function buildWM() {
-  let host = document.getElementById('wm');
-  if (!host) { host = document.createElement('div'); host.id = 'wm'; host.className = 'wm'; host.setAttribute('aria-hidden','true'); document.body.appendChild(host); }
-  host.className = 'wm'; host.removeAttribute('style');
-  const n = Math.ceil((window.innerWidth * window.innerHeight) / 12000) + 40;
-  let s = '';
-  for (let i = 0; i < n; i++) s += '<span>' + WM_TEXT + '<\\/span>';
-  host.innerHTML = '<div class="wm-i" id="wmi">' + s + '<\\/div>';
-}
-function ensureWM() {
-  const host = document.getElementById('wm'), inner = document.getElementById('wmi');
-  if (!host || !inner || inner.textContent.indexOf('CyberHandyman') < 0) { buildWM(); return; }
-  const ch = getComputedStyle(host), ci = getComputedStyle(inner);
-  if (ch.display === 'none' || ch.visibility === 'hidden' || ch.position !== 'fixed' || parseFloat(ci.opacity) < 0.03) {
-    host.removeAttribute('style'); inner.removeAttribute('style'); buildWM();
-  }
-}
-buildWM();
-try { new MutationObserver(ensureWM).observe(document.body, { childList: true }); } catch(e) {}
-setInterval(ensureWM, 1500);
-window.addEventListener('resize', buildWM);
-
 applyI18n();
 queryActive();
 <\/script>
@@ -1394,11 +1343,6 @@ body{
 }
 .wrap{ max-width:600px; margin:0 auto; padding:20px 16px calc(44px + env(safe-area-inset-bottom)); }
 
-/* --- top warning: red accent bar + tint --- */
-.warn{ position:relative; background:linear-gradient(180deg,rgba(255,91,96,.16),rgba(255,91,96,.06)); border:1px solid rgba(255,91,96,.5); border-left:5px solid var(--red); border-radius:12px; padding:15px 18px; margin-bottom:12px; }
-.warn .t{ color:#ff6b70; font-size:20px; font-weight:800; letter-spacing:.4px; line-height:1.4; }
-.warn .b{ color:#ffdcdc; font-size:15.5px; font-weight:700; line-height:1.7; margin-top:9px; }
-
 /* --- disclaimer --- */
 .disc{ background:var(--card); border:1px solid var(--line); border-radius:12px; padding:13px 16px; margin-bottom:18px; }
 .disc-t{ font-size:13px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:var(--cyan); margin-bottom:9px; }
@@ -1411,22 +1355,16 @@ header{ text-align:center; padding:8px 0 6px; }
 header .logowrap{ position:relative; width:74px; margin:0 auto 14px; }
 header .logo{ width:74px; height:74px; border-radius:20px; display:block; box-shadow:0 0 0 1px var(--line),0 10px 30px rgba(23,195,207,.28); }
 h1{ font-size:23px; font-weight:800; letter-spacing:.3px; background:linear-gradient(92deg,#eafcff,#7fe3ea 55%,#22c55e); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
-.ytline{ margin-top:13px; font-size:17.5px; font-weight:800; letter-spacing:.3px; line-height:1.5; }
-.ytline .yt{ color:#ff6b70; text-decoration:none; text-shadow:0 0 18px rgba(255,91,96,.45); }
 .credit{ font-size:12px; color:var(--muted); margin-top:9px; line-height:1.7; }
 .credit a{ color:#8fe0e6; text-decoration:none; }
 .synced{ font-size:12px; color:#22c55e; font-weight:700; margin-top:8px; }
 .synced a{ color:#22c55e; text-decoration:underline; }
 
-/* --- primary CTAs (green picker + video) --- */
+/* --- primary CTAs --- */
 .ctas{ display:flex; gap:10px; margin:18px 0 4px; }
 .enter{ flex:1; display:flex; align-items:center; justify-content:center; gap:8px; padding:17px 14px; border:none; border-radius:14px; font-size:16px; font-weight:800; cursor:pointer; text-decoration:none; transition:transform .12s,box-shadow .12s; }
 .enter:active{ transform:scale(.97); }
 .enter.go{ background:linear-gradient(135deg,#2ee06a,#129a44); color:#04240f; box-shadow:0 10px 26px rgba(34,197,94,.34); }
-.enter.video{ background:transparent; color:#ff6b70; border:1.5px solid rgba(255,91,96,.6); flex:0 0 44%; }
-.enter.video:active{ background:rgba(255,91,96,.1); }
-.enter.tg{ width:100%; margin:10px 0 4px; background:transparent; color:#5cb8e8; border:1.5px solid rgba(42,171,238,.55); }
-.enter.tg:active{ background:rgba(42,171,238,.12); }
 
 .divider{ height:1px; background:linear-gradient(90deg,transparent,var(--line),transparent); margin:24px 0 20px; }
 
@@ -1455,11 +1393,6 @@ h2::before{ content:""; width:4px; height:16px; border-radius:2px; background:li
 .mitm .hosts{ margin-top:8px; padding:10px 12px; background:var(--bg); border:1px solid var(--line); border-radius:9px; }
 .mitm .hosts code{ line-height:2.1; }
 
-/* --- tiled diagonal watermark (continuous, self-restoring) --- */
-.wm{ position:fixed; inset:0; z-index:90; pointer-events:none; overflow:hidden; user-select:none; -webkit-user-select:none; }
-.wm-i{ position:absolute; inset:-60%; display:flex; flex-wrap:wrap; align-content:flex-start; transform:rotate(-24deg); opacity:.11; }
-.wm-i span{ flex:none; padding:26px 30px; font-size:17.5px; font-weight:800; white-space:nowrap; color:#8fe0e6; letter-spacing:.4px; }
-
 .toast{ position:fixed; left:50%; bottom:40px; transform:translateX(-50%) translateY(20px); background:rgba(8,10,14,.92); color:#fff; padding:11px 20px; border-radius:22px; font-size:14px; opacity:0; transition:all .25s; pointer-events:none; z-index:99; border:1px solid var(--line); }
 .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
 footer{ text-align:center; font-size:11.5px; color:var(--muted); margin-top:26px; line-height:1.9; }
@@ -1468,14 +1401,10 @@ footer b{ color:#8fe0e6; }
 </head>
 <body>
 <div class="wrap">
-  <div class="warn">
-    <div class="t">⚠️ 免费开源项目 · 禁止售卖</div>
-    <div class="b"><b>如果你是通过付款来到本页面，请立即联系退款。</b><br>任何售卖本项目 / 模块的都是骗子。一经发现立即删库，血本无归。</div>
-  </div>
   <div class="disc">
     <div class="disc-t">免责声明</div>
     <ol class="disc-list">
-      <li>本项目为免费开源工具，<b>仅供个人学习、研究与技术测试之用</b>，请勿用于任何违反所在国家/地区法律法规的用途。</li>
+      <li>本项目<b>仅供个人学习、研究与技术测试之用</b>，请勿用于任何违反所在国家/地区法律法规的用途。</li>
       <li>使用本项目（含模块、脚本、选点页）所引发的<b>一切风险与后果，由使用者自行承担</b>，与开源项目原作者、贡献者及本页面维护者无关。</li>
       <li>本项目与 <b>Apple Inc.</b> 无任何关联，不隶属、不代表 Apple，亦未获其授权或认可。</li>
       <li>下载、安装或使用本项目，即视为你已阅读并同意本声明；如不同意，请立即停止使用。</li>
@@ -1485,7 +1414,6 @@ footer b{ color:#8fe0e6; }
   <header>
     <div class="logowrap"><img class="logo" src="/icon.svg" alt=""></div>
     <h1>iOS Location Spoofer · 虚拟定位</h1>
-    <p class="ytline">📺 <a class="yt" href="https://www.youtube.com/@CyberHandyman/videos" target="_blank" rel="noopener">YouTube：CyberHandyman 赛博工具人</a></p>
     <p class="credit">
       fork from 鸣谢贡献者：<a href="https://github.com/Yu9191/wloc" target="_blank" rel="noopener">Yu9191</a> ·
       <a href="https://github.com/mekos2772/ios-location-spoofer" target="_blank" rel="noopener">mekos2772</a> ·
@@ -1496,9 +1424,7 @@ footer b{ color:#8fe0e6; }
 
   <div class="ctas">
     <a class="enter go" href="/picker">🗺️ 进入选点网页</a>
-    <a class="enter video" href="https://youtu.be/EspuRlKWUxc" target="_blank" rel="noopener">▶️ 视频教程</a>
   </div>
-  <a class="enter tg" href="https://t.me/cyberhandymancngroup" target="_blank" rel="noopener">✈️ 加入 Telegram 讨论群</a>
 
   <div class="divider"></div>
 
@@ -1524,33 +1450,8 @@ footer b{ color:#8fe0e6; }
     GNU AGPL-3.0 · 仅供学习研究
   </footer>
 </div>
-<div class="wm" id="wm" aria-hidden="true"><div class="wm-i" id="wmi"></div></div>
 <div class="toast" id="toast"></div>
 <script>
-/* ---- Watermark: tiled, non-interactive, rebuilt if tampered with ---- */
-var WM_TEXT = 'YouTube：赛博工具人 @CyberHandyman 根据GitHub开源项目制作';
-function buildWM(){
-  var host = document.getElementById('wm');
-  if (!host){ host = document.createElement('div'); host.id = 'wm'; host.className = 'wm'; host.setAttribute('aria-hidden','true'); document.body.appendChild(host); }
-  host.className = 'wm'; host.removeAttribute('style');
-  var n = Math.ceil((window.innerWidth * window.innerHeight) / 12000) + 40;
-  var s = '';
-  for (var i = 0; i < n; i++) s += '<span>' + WM_TEXT + '</span>';
-  host.innerHTML = '<div class="wm-i" id="wmi">' + s + '</div>';
-}
-function ensureWM(){
-  var host = document.getElementById('wm'), inner = document.getElementById('wmi');
-  if (!host || !inner || inner.textContent.indexOf('CyberHandyman') < 0) { buildWM(); return; }
-  var ch = getComputedStyle(host), ci = getComputedStyle(inner);
-  if (ch.display === 'none' || ch.visibility === 'hidden' || ch.position !== 'fixed' || parseFloat(ci.opacity) < 0.03) {
-    host.removeAttribute('style'); inner.removeAttribute('style'); buildWM();
-  }
-}
-buildWM();
-try { new MutationObserver(ensureWM).observe(document.body, { childList:true }); } catch(e) {}
-setInterval(ensureWM, 1500);
-window.addEventListener('resize', buildWM);
-
 var origin = location.origin;
 function u(file){ return origin + '/' + file; }
 var qxExtra = ', tag=iOS Location Spoofer, update-interval=172800, opt-parser=true, enabled=true';
@@ -1642,7 +1543,7 @@ app.get("/location-spoofer-qx.js", (c) => c.body(b64ToBytes(LOCATION_SPOOFER_QX_
 
 function sgmodule(origin) {
   return String.raw`#!name=iOS Location Spoofer (Stateless)
-#!desc=任何售卖本项目/模块的都是骗子，请立即联系退款。无状态版：坐标写入每台设备各自的本机存储、可公开共用、多人互不覆盖。搭配选点页使用。适用于 Shadowrocket / Surge / Egern。
+#!desc=无状态版：坐标写入每台设备各自的本机存储、可公开共用、多人互不覆盖。搭配选点页使用。适用于 Shadowrocket / Surge / Egern。
 #!homepage=${origin}
 
 [Script]
@@ -1654,7 +1555,7 @@ hostname = %APPEND% gs-loc.apple.com, gs-loc-cn.apple.com, bluedot.is.autonavi.c
 }
 function stoverride(origin) {
   return String.raw`name: iOS Location Spoofer (Stateless)
-desc: "任何售卖本项目/模块的都是骗子，请立即联系退款。iOS Location Spoofer 无状态版 (Stash)"
+desc: "iOS Location Spoofer 无状态版 (Stash)"
 homepage: ${origin}
 
 http:
@@ -1686,7 +1587,7 @@ script-providers:
 }
 function lnplugin(origin) {
   return String.raw`#!name=iOS Location Spoofer (Stateless)
-#!desc=任何售卖本项目/模块的都是骗子，请立即联系退款。无状态版，配合选点页使用。Loon 插件。
+#!desc=无状态版，配合选点页使用。Loon 插件。
 #!homepage=${origin}
 
 [Script]
@@ -1700,7 +1601,7 @@ hostname = gs-loc.apple.com, gs-loc-cn.apple.com, bluedot.is.autonavi.com, blued
 // not auto-merge MITM hostnames the way Surge modules do, so the user must add them manually.
 function qxsnippet(origin) {
   return String.raw`#!name=iOS Location Spoofer (Stateless)
-#!desc=任何售卖本项目/模块的都是骗子，请立即联系退款。无状态版。Quantumult X 用「重写(rewrite)引用」(非模块/插件)。MITM 主机名需手动加进 QX 设置 → MITM。
+#!desc=无状态版。Quantumult X 用「重写(rewrite)引用」(非模块/插件)。MITM 主机名需手动加进 QX 设置 → MITM。
 #!homepage=${origin}
 
 [rewrite_local]
@@ -1774,10 +1675,7 @@ app.post("/tg", async (c) => {
   const cmd = text.trim().split(/\s+/)[0].split("@")[0].toLowerCase();
   if (token && chatId && (cmd === "/link" || cmd === "/links" || cmd === "/start")) {
     const origin = new URL(c.req.url).origin;
-    const reply =
-      "📍 iOS 虚拟定位 · 选点主页\n" + origin + "/\n\n" +
-      "▶️ 视频教程：https://youtu.be/EspuRlKWUxc\n\n" +
-      "⚠️ 免费开源，禁止售卖。若你是付款进来的，请立即联系退款——任何售卖者都是骗子。";
+    const reply = "📍 iOS 虚拟定位 · 选点主页\n" + origin + "/";
     await fetch("https://api.telegram.org/bot" + token + "/sendMessage", {
       method: "POST",
       headers: { "Content-Type": "application/json" },

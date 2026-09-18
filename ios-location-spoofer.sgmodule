@@ -1,13 +1,13 @@
 #!name=iOS Location Spoofer (Stateless)
-#!desc=任何售卖本项目/模块的都是骗子，请立即联系退款。无状态版：坐标写入每台设备各自的本机存储、可公开共用、多人互不覆盖。搭配选点页使用（点地图选位置 → 储存到设备）。适用于 Shadowrocket / Surge / Egern。
-#!homepage=https://github.com/cyberhandyman/ios-location-spoofer
+#!desc=无状态版：坐标写入每台设备各自的本机存储、可公开共用、多人互不覆盖。搭配选点页使用（点地图选位置 → 储存到设备）。适用于 Shadowrocket / Surge / Egern。
+#!homepage=https://github.com/flavedo/ios-location-spoofer
 
 [Script]
 # 1) 拦截 Apple /clls/wloc 响应，读本机 $persistentStore 的 latitude/longitude/altitude/enabled 等替换坐标。
 #    argument 不带经纬度/enabled —— 全交给设备端持久化控制（未选点 → enabled 默认 false → 透传真实定位）。
-iOS Location Spoofer = type=http-response,pattern=^https?:\/\/(?:gs-loc(?:-cn)?\.apple\.com|bluedot\.is\.autonavi\.com(?:\.gds\.alibabadns\.com)?)\/clls\/wloc(?:\?.*)?$,requires-body=1,binary-body-mode=1,max-size=1048576,timeout=10,script-path=https://raw.githubusercontent.com/cyberhandyman/ios-location-spoofer/main/location-spoofer.js,argument=mode=response&debug=false
+iOS Location Spoofer = type=http-response,pattern=^https?:\/\/(?:gs-loc(?:-cn)?\.apple\.com|bluedot\.is\.autonavi\.com(?:\.gds\.alibabadns\.com)?)\/clls\/wloc(?:\?.*)?$,requires-body=1,binary-body-mode=1,max-size=1048576,timeout=10,script-path=https://raw.githubusercontent.com/flavedo/ios-location-spoofer/main/location-spoofer.js,argument=mode=response&debug=false
 # 2) 拦截选点页的储存请求，把坐标写进本机持久化（不发往 Apple、不经过任何服务器）。
-iLS Settings = type=http-request,pattern=^https?:\/\/gs-loc(?:-cn)?\.apple\.com\/ils-settings\/,requires-body=0,max-size=0,timeout=10,script-path=https://raw.githubusercontent.com/cyberhandyman/ios-location-spoofer/main/location-settings.js
+iLS Settings = type=http-request,pattern=^https?:\/\/gs-loc(?:-cn)?\.apple\.com\/ils-settings\/,requires-body=0,max-size=0,timeout=10,script-path=https://raw.githubusercontent.com/flavedo/ios-location-spoofer/main/location-settings.js
 
 [MITM]
 hostname = %APPEND% gs-loc.apple.com, gs-loc-cn.apple.com, bluedot.is.autonavi.com, bluedot.is.autonavi.com.gds.alibabadns.com

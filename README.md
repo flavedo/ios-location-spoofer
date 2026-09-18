@@ -1,28 +1,11 @@
 # iOS Location Spoofer
 
-自建了worker网页，选点页也在里面：https://cyberhandyman-ioslocspo.cyberhandyman.workers.dev
-
-视频教程：https://youtu.be/EspuRlKWUxc
-
-> 📺 YouTube：**[CyberHandyman 赛博工具人](https://www.youtube.com/@CyberHandyman/videos)** ｜ ✈️ Telegram 讨论群：**[@cyberhandymancngroup](https://t.me/cyberhandymancngroup)**
-
-> ✅ **已同步上游 [Yu9191/wloc v1.1](https://github.com/Yu9191/wloc/releases)**：随机扰动半径（每次定位在目标点周围随机偏移，避免结果完全相同）· 港澳台坐标（苹果/Google 在港澳台直发 WGS-84，不再误做 GCJ 反算）· 百度链接解析 · 高德 `position=` 经纬顺序修正。扰动半径在选点页设置。
-
----
-
-## ⚠️ 免费开源项目 · 禁止售卖
-
-**如果你是通过付款来到本页面，请立即联系退款。**
-任何售卖本项目 / 模块的都是骗子。一经发现立即删库，血本无归。
-
----
-
 ## 🚀 一键部署你自己的选点页
 
-不想用我的网址、或者想自己掌控？点下面的按钮，登录 Cloudflare 后一路下一步，
+点击下面的按钮，登录 Cloudflare 后一路下一步，
 **30 秒**就能部署一份**属于你自己的**选点页（Cloudflare 免费额度完全够用）：
 
-[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/cyberhandyman/ios-location-spoofer/tree/main/stateless-picker/worker)
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/flavedo/ios-location-spoofer/tree/main/stateless-picker/worker)
 
 部署完你会拿到一个自己的网址（形如 `https://xxx.你的账号.workers.dev`）。
 它自带全部模块文件，主页里的「一键导入」按钮会**自动指向你自己的域名**，不用改任何代码。
@@ -48,14 +31,14 @@
 
 ## 📦 模块安装地址
 
-推荐直接在[选点页首页](https://cyberhandyman-ioslocspo.cyberhandyman.workers.dev)点「一键导入」。手动添加用下面的地址：
+推荐在选点页首页点「一键导入」，或手动添加下面的地址：
 
 | 客户端 | 模块地址 |
 |---|---|
-| Shadowrocket / Surge / Egern | `https://raw.githubusercontent.com/cyberhandyman/ios-location-spoofer/main/ios-location-spoofer.sgmodule` |
-| Loon | `https://raw.githubusercontent.com/cyberhandyman/ios-location-spoofer/main/ios-location-spoofer.lnplugin` |
-| Stash | `https://raw.githubusercontent.com/cyberhandyman/ios-location-spoofer/main/ios-location-spoofer.stoverride` |
-| Quantumult X | `https://raw.githubusercontent.com/cyberhandyman/ios-location-spoofer/main/ios-location-spoofer.snippet` |
+| Shadowrocket / Surge / Egern | `https://raw.githubusercontent.com/flavedo/ios-location-spoofer/main/ios-location-spoofer.sgmodule` |
+| Loon | `https://raw.githubusercontent.com/flavedo/ios-location-spoofer/main/ios-location-spoofer.lnplugin` |
+| Stash | `https://raw.githubusercontent.com/flavedo/ios-location-spoofer/main/ios-location-spoofer.stoverride` |
+| Quantumult X | `https://raw.githubusercontent.com/flavedo/ios-location-spoofer/main/ios-location-spoofer.snippet` |
 
 **MITM 主机名**（如全部配置成功仍不生效，手动加入这四个域名）：
 

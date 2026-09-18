@@ -1,6 +1,6 @@
 # iOS Location Spoofer — 无状态选点页（Stateless Picker）
 
-给 [`ios-location-spoofer`](https://github.com/cyberhandyman/ios-location-spoofer) 配一个**可公开共用、多人互不覆盖**的地图选点页：点地图选点 → 自动查海拔 → 一键写入本机 → `location-spoofer.js` 直接生效。
+给 [`ios-location-spoofer`](https://github.com/flavedo/ios-location-spoofer) 配一个**可公开共用、多人互不覆盖**的地图选点页：点地图选点 → 自动查海拔 → 一键写入本机 → `location-spoofer.js` 直接生效。
 
 用的是这个项目**自己的模块**（`location-spoofer.js`，保留 ARPC / 海拔 / 运动状态等全部能力），只是把坐标来源从"共享服务器"换成"每台设备各自的本地存储"。
 
@@ -48,14 +48,14 @@
 
 | 客户端 | 地址 |
 |---|---|
-| Surge / Shadowrocket / Egern | `https://cyberhandyman-ioslocspo.cyberhandyman.workers.dev/ios-location-spoofer.sgmodule` |
+| Surge / Shadowrocket / Egern | `https://你的worker域名/ios-location-spoofer.sgmodule` |
 | Loon | `…/ios-location-spoofer.lnplugin` |
 | Stash | `…/ios-location-spoofer.stoverride` |
 | Quantumult X（重写引用） | `…/ios-location-spoofer.snippet` |
 
 **B. 从 GitHub raw 装（需先把你的 fork push 上去）**
 
-根目录已是无状态模块，脚本指向 `raw.githubusercontent.com/cyberhandyman/…`：
+根目录已是无状态模块，脚本指向 `raw.githubusercontent.com/flavedo/…`：
 - Surge / Shadowrocket / Egern：`…/main/ios-location-spoofer.sgmodule`
 - Loon：`…/main/ios-location-spoofer.lnplugin`
 - Stash：`…/main/ios-location-spoofer.stoverride`
@@ -76,7 +76,7 @@
 ## 自部署选点页 worker
 
 ```bash
-git clone https://github.com/cyberhandyman/ios-location-spoofer.git
+git clone https://github.com/flavedo/ios-location-spoofer.git
 cd ios-location-spoofer/stateless-picker/worker
 npm install
 npx wrangler login       # 首次；需先在 Cloudflare 验证账号邮箱

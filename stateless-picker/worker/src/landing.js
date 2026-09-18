@@ -27,11 +27,6 @@ body{
 }
 .wrap{ max-width:600px; margin:0 auto; padding:20px 16px calc(44px + env(safe-area-inset-bottom)); }
 
-/* --- top warning: red accent bar + tint --- */
-.warn{ position:relative; background:linear-gradient(180deg,rgba(255,91,96,.16),rgba(255,91,96,.06)); border:1px solid rgba(255,91,96,.5); border-left:5px solid var(--red); border-radius:12px; padding:15px 18px; margin-bottom:12px; }
-.warn .t{ color:#ff6b70; font-size:20px; font-weight:800; letter-spacing:.4px; line-height:1.4; }
-.warn .b{ color:#ffdcdc; font-size:15.5px; font-weight:700; line-height:1.7; margin-top:9px; }
-
 /* --- disclaimer --- */
 .disc{ background:var(--card); border:1px solid var(--line); border-radius:12px; padding:13px 16px; margin-bottom:18px; }
 .disc-t{ font-size:13px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:var(--cyan); margin-bottom:9px; }
@@ -44,22 +39,16 @@ header{ text-align:center; padding:8px 0 6px; }
 header .logowrap{ position:relative; width:74px; margin:0 auto 14px; }
 header .logo{ width:74px; height:74px; border-radius:20px; display:block; box-shadow:0 0 0 1px var(--line),0 10px 30px rgba(23,195,207,.28); }
 h1{ font-size:23px; font-weight:800; letter-spacing:.3px; background:linear-gradient(92deg,#eafcff,#7fe3ea 55%,#22c55e); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
-.ytline{ margin-top:13px; font-size:17.5px; font-weight:800; letter-spacing:.3px; line-height:1.5; }
-.ytline .yt{ color:#ff6b70; text-decoration:none; text-shadow:0 0 18px rgba(255,91,96,.45); }
 .credit{ font-size:12px; color:var(--muted); margin-top:9px; line-height:1.7; }
 .credit a{ color:#8fe0e6; text-decoration:none; }
 .synced{ font-size:12px; color:#22c55e; font-weight:700; margin-top:8px; }
 .synced a{ color:#22c55e; text-decoration:underline; }
 
-/* --- primary CTAs (green picker + video) --- */
+/* --- primary CTAs --- */
 .ctas{ display:flex; gap:10px; margin:18px 0 4px; }
 .enter{ flex:1; display:flex; align-items:center; justify-content:center; gap:8px; padding:17px 14px; border:none; border-radius:14px; font-size:16px; font-weight:800; cursor:pointer; text-decoration:none; transition:transform .12s,box-shadow .12s; }
 .enter:active{ transform:scale(.97); }
 .enter.go{ background:linear-gradient(135deg,#2ee06a,#129a44); color:#04240f; box-shadow:0 10px 26px rgba(34,197,94,.34); }
-.enter.video{ background:transparent; color:#ff6b70; border:1.5px solid rgba(255,91,96,.6); flex:0 0 44%; }
-.enter.video:active{ background:rgba(255,91,96,.1); }
-.enter.tg{ width:100%; margin:10px 0 4px; background:transparent; color:#5cb8e8; border:1.5px solid rgba(42,171,238,.55); }
-.enter.tg:active{ background:rgba(42,171,238,.12); }
 
 .divider{ height:1px; background:linear-gradient(90deg,transparent,var(--line),transparent); margin:24px 0 20px; }
 
@@ -88,11 +77,6 @@ h2::before{ content:""; width:4px; height:16px; border-radius:2px; background:li
 .mitm .hosts{ margin-top:8px; padding:10px 12px; background:var(--bg); border:1px solid var(--line); border-radius:9px; }
 .mitm .hosts code{ line-height:2.1; }
 
-/* --- tiled diagonal watermark (continuous, self-restoring) --- */
-.wm{ position:fixed; inset:0; z-index:90; pointer-events:none; overflow:hidden; user-select:none; -webkit-user-select:none; }
-.wm-i{ position:absolute; inset:-60%; display:flex; flex-wrap:wrap; align-content:flex-start; transform:rotate(-24deg); opacity:.11; }
-.wm-i span{ flex:none; padding:26px 30px; font-size:17.5px; font-weight:800; white-space:nowrap; color:#8fe0e6; letter-spacing:.4px; }
-
 .toast{ position:fixed; left:50%; bottom:40px; transform:translateX(-50%) translateY(20px); background:rgba(8,10,14,.92); color:#fff; padding:11px 20px; border-radius:22px; font-size:14px; opacity:0; transition:all .25s; pointer-events:none; z-index:99; border:1px solid var(--line); }
 .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
 footer{ text-align:center; font-size:11.5px; color:var(--muted); margin-top:26px; line-height:1.9; }
@@ -101,14 +85,10 @@ footer b{ color:#8fe0e6; }
 </head>
 <body>
 <div class="wrap">
-  <div class="warn">
-    <div class="t">⚠️ 免费开源项目 · 禁止售卖</div>
-    <div class="b"><b>如果你是通过付款来到本页面，请立即联系退款。</b><br>任何售卖本项目 / 模块的都是骗子。一经发现立即删库，血本无归。</div>
-  </div>
   <div class="disc">
     <div class="disc-t">免责声明</div>
     <ol class="disc-list">
-      <li>本项目为免费开源工具，<b>仅供个人学习、研究与技术测试之用</b>，请勿用于任何违反所在国家/地区法律法规的用途。</li>
+      <li>本项目<b>仅供个人学习、研究与技术测试之用</b>，请勿用于任何违反所在国家/地区法律法规的用途。</li>
       <li>使用本项目（含模块、脚本、选点页）所引发的<b>一切风险与后果，由使用者自行承担</b>，与开源项目原作者、贡献者及本页面维护者无关。</li>
       <li>本项目与 <b>Apple Inc.</b> 无任何关联，不隶属、不代表 Apple，亦未获其授权或认可。</li>
       <li>下载、安装或使用本项目，即视为你已阅读并同意本声明；如不同意，请立即停止使用。</li>
@@ -118,7 +98,6 @@ footer b{ color:#8fe0e6; }
   <header>
     <div class="logowrap"><img class="logo" src="/icon.svg" alt=""></div>
     <h1>iOS Location Spoofer · 虚拟定位</h1>
-    <p class="ytline">📺 <a class="yt" href="https://www.youtube.com/@CyberHandyman/videos" target="_blank" rel="noopener">YouTube：CyberHandyman 赛博工具人</a></p>
     <p class="credit">
       fork from 鸣谢贡献者：<a href="https://github.com/Yu9191/wloc" target="_blank" rel="noopener">Yu9191</a> ·
       <a href="https://github.com/mekos2772/ios-location-spoofer" target="_blank" rel="noopener">mekos2772</a> ·
@@ -129,9 +108,7 @@ footer b{ color:#8fe0e6; }
 
   <div class="ctas">
     <a class="enter go" href="/picker">🗺️ 进入选点网页</a>
-    <a class="enter video" href="https://youtu.be/EspuRlKWUxc" target="_blank" rel="noopener">▶️ 视频教程</a>
   </div>
-  <a class="enter tg" href="https://t.me/cyberhandymancngroup" target="_blank" rel="noopener">✈️ 加入 Telegram 讨论群</a>
 
   <div class="divider"></div>
 
@@ -157,33 +134,8 @@ footer b{ color:#8fe0e6; }
     GNU AGPL-3.0 · 仅供学习研究
   </footer>
 </div>
-<div class="wm" id="wm" aria-hidden="true"><div class="wm-i" id="wmi"></div></div>
 <div class="toast" id="toast"></div>
 <script>
-/* ---- Watermark: tiled, non-interactive, rebuilt if tampered with ---- */
-var WM_TEXT = 'YouTube：赛博工具人 @CyberHandyman 根据GitHub开源项目制作';
-function buildWM(){
-  var host = document.getElementById('wm');
-  if (!host){ host = document.createElement('div'); host.id = 'wm'; host.className = 'wm'; host.setAttribute('aria-hidden','true'); document.body.appendChild(host); }
-  host.className = 'wm'; host.removeAttribute('style');
-  var n = Math.ceil((window.innerWidth * window.innerHeight) / 12000) + 40;
-  var s = '';
-  for (var i = 0; i < n; i++) s += '<span>' + WM_TEXT + '</span>';
-  host.innerHTML = '<div class="wm-i" id="wmi">' + s + '</div>';
-}
-function ensureWM(){
-  var host = document.getElementById('wm'), inner = document.getElementById('wmi');
-  if (!host || !inner || inner.textContent.indexOf('CyberHandyman') < 0) { buildWM(); return; }
-  var ch = getComputedStyle(host), ci = getComputedStyle(inner);
-  if (ch.display === 'none' || ch.visibility === 'hidden' || ch.position !== 'fixed' || parseFloat(ci.opacity) < 0.03) {
-    host.removeAttribute('style'); inner.removeAttribute('style'); buildWM();
-  }
-}
-buildWM();
-try { new MutationObserver(ensureWM).observe(document.body, { childList:true }); } catch(e) {}
-setInterval(ensureWM, 1500);
-window.addEventListener('resize', buildWM);
-
 var origin = location.origin;
 function u(file){ return origin + '/' + file; }
 var qxExtra = ', tag=iOS Location Spoofer, update-interval=172800, opt-parser=true, enabled=true';

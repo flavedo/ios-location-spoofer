@@ -53,7 +53,7 @@ app.get("/location-spoofer-qx.js", (c) => c.body(b64ToBytes(LOCATION_SPOOFER_QX_
 
 function sgmodule(origin) {
   return String.raw`#!name=iOS Location Spoofer (Stateless)
-#!desc=任何售卖本项目/模块的都是骗子，请立即联系退款。无状态版：坐标写入每台设备各自的本机存储、可公开共用、多人互不覆盖。搭配选点页使用。适用于 Shadowrocket / Surge / Egern。
+#!desc=无状态版：坐标写入每台设备各自的本机存储、可公开共用、多人互不覆盖。搭配选点页使用。适用于 Shadowrocket / Surge / Egern。
 #!homepage=${origin}
 
 [Script]
@@ -65,7 +65,7 @@ hostname = %APPEND% gs-loc.apple.com, gs-loc-cn.apple.com, bluedot.is.autonavi.c
 }
 function stoverride(origin) {
   return String.raw`name: iOS Location Spoofer (Stateless)
-desc: "任何售卖本项目/模块的都是骗子，请立即联系退款。iOS Location Spoofer 无状态版 (Stash)"
+desc: "iOS Location Spoofer 无状态版 (Stash)"
 homepage: ${origin}
 
 http:
@@ -97,7 +97,7 @@ script-providers:
 }
 function lnplugin(origin) {
   return String.raw`#!name=iOS Location Spoofer (Stateless)
-#!desc=任何售卖本项目/模块的都是骗子，请立即联系退款。无状态版，配合选点页使用。Loon 插件。
+#!desc=无状态版，配合选点页使用。Loon 插件。
 #!homepage=${origin}
 
 [Script]
@@ -111,7 +111,7 @@ hostname = gs-loc.apple.com, gs-loc-cn.apple.com, bluedot.is.autonavi.com, blued
 // not auto-merge MITM hostnames the way Surge modules do, so the user must add them manually.
 function qxsnippet(origin) {
   return String.raw`#!name=iOS Location Spoofer (Stateless)
-#!desc=任何售卖本项目/模块的都是骗子，请立即联系退款。无状态版。Quantumult X 用「重写(rewrite)引用」(非模块/插件)。MITM 主机名需手动加进 QX 设置 → MITM。
+#!desc=无状态版。Quantumult X 用「重写(rewrite)引用」(非模块/插件)。MITM 主机名需手动加进 QX 设置 → MITM。
 #!homepage=${origin}
 
 [rewrite_local]
@@ -185,10 +185,7 @@ app.post("/tg", async (c) => {
   const cmd = text.trim().split(/\s+/)[0].split("@")[0].toLowerCase();
   if (token && chatId && (cmd === "/link" || cmd === "/links" || cmd === "/start")) {
     const origin = new URL(c.req.url).origin;
-    const reply =
-      "📍 iOS 虚拟定位 · 选点主页\n" + origin + "/\n\n" +
-      "▶️ 视频教程：https://youtu.be/EspuRlKWUxc\n\n" +
-      "⚠️ 免费开源，禁止售卖。若你是付款进来的，请立即联系退款——任何售卖者都是骗子。";
+    const reply = "📍 iOS 虚拟定位 · 选点主页\n" + origin + "/";
     await fetch("https://api.telegram.org/bot" + token + "/sendMessage", {
       method: "POST",
       headers: { "Content-Type": "application/json" },

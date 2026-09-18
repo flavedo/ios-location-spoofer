@@ -38,24 +38,10 @@ body {
 ::-webkit-scrollbar-thumb { background:#2b3342; border-radius:3px; }
 
 /* ---- top bar: sticky glass ---- */
-.topbar { position:sticky; top:0; z-index:1200; display:flex; align-items:center; gap:10px; padding:9px 12px; background:rgba(10,12,17,.82); -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px); border-bottom:1px solid var(--line); font-size:11px; color:var(--muted); }
-.topbar .back { flex:none; color:var(--cyan); font-weight:700; text-decoration:none; }
-.topbar .topcredit { flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.topbar .topcredit a { color:#8fe0e6; text-decoration:none; font-weight:700; }
-.topbar .topcredit .ytname { font-size:13.5px; font-weight:800; color:#ff6b70; text-shadow:0 0 14px rgba(255,91,96,.4); }
-.topbar .topcredit .forkline { font-size:10.5px; color:#6b7484; }
-.topbar .topcredit .forkline .v11 { color:#22c55e; font-weight:700; }
-.topbar .tg { flex:none; color:#5cb8e8; font-weight:700; text-decoration:none; padding:3px 9px; border:1px solid rgba(42,171,238,.45); border-radius:20px; }
-.topbar .tg:active { background:rgba(42,171,238,.14); }
-
-/* ---- video tutorial CTA ---- */
-.vidbtn { display:flex; align-items:center; justify-content:center; gap:8px; margin:12px 12px 0; padding:15px; border-radius:13px; background:transparent; color:#ff6b70; border:1.5px solid rgba(255,91,96,.6); font-size:16px; font-weight:800; text-decoration:none; letter-spacing:.3px; transition:all .12s; }
-.vidbtn:active { background:rgba(255,91,96,.12); transform:scale(.98); }
-
-/* ---- anti-resale box: red bar + tint (matches landing) ---- */
-.redbox { margin:12px 12px 0; padding:14px 16px; background:linear-gradient(180deg,rgba(255,91,96,.16),rgba(255,91,96,.06)); border:1px solid rgba(255,91,96,.5); border-left:5px solid var(--red); border-radius:12px; }
-.redbox .rt { color:#ff6b70; font-size:17px; font-weight:800; line-height:1.4; letter-spacing:.3px; }
-.redbox .rb { color:#ffdcdc; font-size:13.5px; font-weight:700; line-height:1.7; margin-top:8px; }
+.topbar { position:sticky; top:0; z-index:1200; display:flex; align-items:center; gap:10px; padding:10px 14px; background:rgba(10,12,17,.82); -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px); border-bottom:1px solid var(--line); font-size:12px; color:var(--muted); }
+.topbar .back { flex:none; color:var(--cyan); font-weight:700; text-decoration:none; font-size:13px; }
+.topbar .topcredit { flex:1; min-width:0; font-weight:700; color:var(--txt); font-size:13px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.topbar .topcredit .forkline { font-size:11px; color:#6b7484; font-weight:normal; margin-left:6px; }
 
 /* ---- map + its glass controls ---- */
 #map { height:50vh; width:100%; min-height:250px; background:#0a0c11; border-bottom:1px solid var(--line); }
@@ -119,11 +105,6 @@ body {
 .error-banner { background:linear-gradient(180deg,rgba(255,91,96,.18),rgba(255,91,96,.08)); border:1px solid rgba(255,91,96,.5); border-left:4px solid var(--red); color:#ffdcdc; padding:14px 16px; border-radius:12px; margin-bottom:12px; font-size:13.5px; line-height:1.6; display:none; }
 .error-banner b { display:block; margin-bottom:4px; color:#ff6b70; font-size:14.5px; }
 
-/* --- tiled diagonal watermark (continuous, self-restoring, never blocks the map) --- */
-.wm { position:fixed; inset:0; z-index:9998; pointer-events:none; overflow:hidden; user-select:none; -webkit-user-select:none; }
-.wm-i { position:absolute; inset:-60%; display:flex; flex-wrap:wrap; align-content:flex-start; transform:rotate(-24deg); opacity:.11; }
-.wm-i span { flex:none; padding:26px 30px; font-size:17.5px; font-weight:800; white-space:nowrap; color:#8fe0e6; letter-spacing:.4px; text-shadow:0 1px 3px rgba(0,0,0,.5); }
-
 .toast { position:fixed; top:60px; left:50%; transform:translateX(-50%); background:rgba(8,10,14,.92); -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px); border:1px solid var(--line); color:#fff; padding:11px 20px; border-radius:22px; font-size:14px; opacity:0; transition:opacity .3s; pointer-events:none; z-index:9999; max-width:90vw; text-align:center; box-shadow:0 8px 28px rgba(0,0,0,.5); }
 .toast.show { opacity:1; }
 
@@ -169,14 +150,8 @@ body {
 <body>
 <div class="topbar">
   <a class="back" href="/">← 主页</a>
-  <span class="topcredit">📺 <a class="ytname" href="https://www.youtube.com/@CyberHandyman/videos" target="_blank" rel="noopener">YouTube CyberHandyman 赛博工具人</a><span class="forkline"> · fork from 鸣谢贡献者: Yu9191 / mekos2772 / acheong08 <span class="v11">· 已同步 Yu9191 v1.1</span></span></span>
-  <a class="tg" href="https://t.me/cyberhandymancngroup" target="_blank" rel="noopener">✈️ TG群</a>
+  <span class="topcredit">iOS Location Spoofer <span class="forkline">· 虚拟定位选点</span></span>
 </div>
-<div class="redbox">
-  <div class="rt">⚠️ 免费开源 · 禁止售卖</div>
-  <div class="rb"><b>如果你是通过付款来到本页面，请立即联系退款。</b>任何售卖本项目/模块的都是骗子，一经发现立即删库，血本无归！！！！<br>仅供学习研究，禁止违法用途，后果自负、与作者无关，与 Apple 无关。</div>
-</div>
-<a class="vidbtn" href="https://youtu.be/EspuRlKWUxc" target="_blank" rel="noopener" data-i18n="video_btn">▶️ 视频教程（YouTube）</a>
 <div style="position:relative">
 <div id="map"></div>
 <div class="lang-switch">
@@ -325,7 +300,6 @@ const I18N = {
     saving: '储存中...', saved: '✓ 已储存',
     written: function(lo, la, ts){ return '✓ 已写入: ' + lo.toFixed(6) + ', ' + la.toFixed(6) + ' · ' + ts; },
     saved_toast: '✓ 坐标已成功写入模块，定位服务关闭开关，等待至少 10 秒钟，再次开启生效',
-    video_btn: '▶️ 视频教程（YouTube）',
     save_failed: '✗ 储存失败 - 请检查模块配置', write_failed: '写入失败',
     no_geo: '浏览器不支持定位', getting_loc: '获取位置中...', got_loc: '已获取当前位置',
     loc_failed: function(m){ return '定位失败: ' + m; },
@@ -376,7 +350,6 @@ const I18N = {
     saving: 'Saving...', saved: '✓ Saved',
     written: function(lo, la, ts){ return '✓ Written: ' + lo.toFixed(6) + ', ' + la.toFixed(6) + ' · ' + ts; },
     saved_toast: '✓ Coordinates written to the module. Turn Location Services OFF, wait at least 10 seconds, then turn it back ON to take effect.',
-    video_btn: '▶️ Video tutorial (YouTube)',
     save_failed: '✗ Save failed - please check the module configuration', write_failed: 'Write failed',
     no_geo: 'Browser does not support geolocation', getting_loc: 'Getting location...', got_loc: 'Current location acquired',
     loc_failed: function(m){ return 'Location failed: ' + m; },
@@ -849,30 +822,6 @@ document.addEventListener('paste', e => {
 document.getElementById('searchInput').addEventListener('keydown', e => { if(e.key==='Enter') searchPlace(); });
 document.getElementById('urlInput').addEventListener('keydown', e => { if(e.key==='Enter') parseUrl(); });
 document.getElementById('favNameInput').addEventListener('keydown', e => { if(e.key==='Enter') confirmFav(); });
-
-/* ---- Watermark: tiled, non-interactive, rebuilt if tampered with ---- */
-const WM_TEXT = 'YouTube：赛博工具人 @CyberHandyman 根据GitHub开源项目制作';
-function buildWM() {
-  let host = document.getElementById('wm');
-  if (!host) { host = document.createElement('div'); host.id = 'wm'; host.className = 'wm'; host.setAttribute('aria-hidden','true'); document.body.appendChild(host); }
-  host.className = 'wm'; host.removeAttribute('style');
-  const n = Math.ceil((window.innerWidth * window.innerHeight) / 12000) + 40;
-  let s = '';
-  for (let i = 0; i < n; i++) s += '<span>' + WM_TEXT + '<\\/span>';
-  host.innerHTML = '<div class="wm-i" id="wmi">' + s + '<\\/div>';
-}
-function ensureWM() {
-  const host = document.getElementById('wm'), inner = document.getElementById('wmi');
-  if (!host || !inner || inner.textContent.indexOf('CyberHandyman') < 0) { buildWM(); return; }
-  const ch = getComputedStyle(host), ci = getComputedStyle(inner);
-  if (ch.display === 'none' || ch.visibility === 'hidden' || ch.position !== 'fixed' || parseFloat(ci.opacity) < 0.03) {
-    host.removeAttribute('style'); inner.removeAttribute('style'); buildWM();
-  }
-}
-buildWM();
-try { new MutationObserver(ensureWM).observe(document.body, { childList: true }); } catch(e) {}
-setInterval(ensureWM, 1500);
-window.addEventListener('resize', buildWM);
 
 applyI18n();
 queryActive();
