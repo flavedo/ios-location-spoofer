@@ -303,7 +303,7 @@ app.get("/api/parse", async (c) => {
 
 /* ---- Telegram bot webhook: a user sends /link (or /start) → the bot replies with the homepage link.
    One-time setup:
-     1) @BotFather → 你的 bot (CyberHandymanMSG_bot) → 拿 API token
+     1) @BotFather → 你的 bot → 拿 API token
      2) 终端:  wrangler secret put TG_BOT_TOKEN            (粘贴 token)
      3) (可选) wrangler secret put TG_WEBHOOK_SECRET       (任意随机串，防伪造)
      4) 注册回调:  curl "https://api.telegram.org/bot<TOKEN>/setWebhook?url=<origin>/tg&secret_token=<SECRET>"

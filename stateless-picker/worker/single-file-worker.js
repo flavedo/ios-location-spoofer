@@ -182,7 +182,7 @@ async function readCapped(resp) {
   }
   try {
     await reader.cancel();
-  } catch (e) { }
+  } catch (e) {}
   const buf = new Uint8Array(total);
   let off = 0;
   for (const c of chunks) {
@@ -250,7 +250,7 @@ async function parseCoords(raw) {
           hit = extractBaiduFromBody(body);
           if (hit) return hit;
         }
-      } catch (e) { }
+      } catch (e) {}
       break;
     }
   }
@@ -260,7 +260,7 @@ async function parseCoords(raw) {
   if (urlMatch && isBaiduHost(target)) {
     throw new Error(
       "百度这条链接的坐标要靠网页脚本才能取到(港澳台的 POI 多为此类)。" +
-      "请在浏览器打开该链接, 等地址栏变成 map.baidu.com/poi/名称/@数字,数字,19z 之后, 复制整条地址再粘贴。"
+        "请在浏览器打开该链接, 等地址栏变成 map.baidu.com/poi/名称/@数字,数字,19z 之后, 复制整条地址再粘贴。"
     );
   }
   throw new Error("未能从链接中解析出经纬度");
@@ -466,7 +466,7 @@ async function fetchAltitude(lat, lon) {
     if (data && Array.isArray(data.elevation) && data.elevation.length && data.elevation[0] !== null) {
       return Math.round(data.elevation[0]);
     }
-  } catch (e) { }
+  } catch (e) {}
   return null;
 }
 
@@ -1717,6 +1717,27 @@ footer b{ color:#8fe0e6; }
 </head>
 <body>
 <div class="wrap">
+  <div class="disc">
+    <div class="disc-t">免责声明</div>
+    <ol class="disc-list">
+      <li>本项目<b>仅供个人学习、研究与技术测试之用</b>，请勿用于任何违反所在国家/地区法律法规的用途。</li>
+      <li>使用本项目（含模块、脚本、选点页）所引发的<b>一切风险与后果，由使用者自行承担</b>，与开源项目原作者、贡献者及本页面维护者无关。</li>
+      <li>本项目与 <b>Apple Inc.</b> 无任何关联，不隶属、不代表 Apple，亦未获其授权或认可。</li>
+      <li>下载、安装或使用本项目，即视为你已阅读并同意本声明；如不同意，请立即停止使用。</li>
+    </ol>
+  </div>
+
+  <header>
+    <div class="logowrap"><img class="logo" src="/icon.svg" alt=""></div>
+    <h1>iOS Location Spoofer · 虚拟定位</h1>
+    <p class="credit">
+      fork from 鸣谢贡献者：<a href="https://github.com/Yu9191/wloc" target="_blank" rel="noopener">Yu9191</a> ·
+      <a href="https://github.com/mekos2772/ios-location-spoofer" target="_blank" rel="noopener">mekos2772</a> ·
+      <a href="https://github.com/acheong08/ios-location-spoofer" target="_blank" rel="noopener">acheong08</a>
+    </p>
+    <p class="synced">✅ 已同步上游 <a href="https://github.com/Yu9191/wloc/releases" target="_blank" rel="noopener">Yu9191/wloc v1.1</a>：随机扰动半径 · 港澳台/百度坐标解析</p>
+  </header>
+
   <div class="ctas">
     <a class="enter go" href="/picker">🗺️ 进入选点网页</a>
     <a class="enter" style="background:linear-gradient(135deg,var(--cyan),var(--cyan2));color:#022a2d;box-shadow:0 10px 26px rgba(23,195,207,.28)" href="/set">⚡ 一键换定位</a>
@@ -1740,6 +1761,11 @@ footer b{ color:#8fe0e6; }
     <b>MITM 主机名（如全部配置成功仍不生效，在 MITM / HTTPS 解密中手动加入下面四个域名）：</b>
     <div class="hosts"><code>gs-loc.apple.com<br>gs-loc-cn.apple.com<br>bluedot.is.autonavi.com<br>bluedot.is.autonavi.com.gds.alibabadns.com</code></div>
   </div>
+
+  <footer>
+    坐标只存在你<b>当前设备</b>上，服务端不留存记录。<br>
+    GNU AGPL-3.0 · 仅供学习研究
+  </footer>
 </div>
 <div class="toast" id="toast"></div>
 <script>
@@ -2084,7 +2110,7 @@ app.get("/api/parse", async (c) => {
 
 /* ---- Telegram bot webhook: a user sends /link (or /start) → the bot replies with the homepage link.
    One-time setup:
-     1) @BotFather → 你的 bot (CyberHandymanMSG_bot) → 拿 API token
+     1) @BotFather → 你的 bot → 拿 API token
      2) 终端:  wrangler secret put TG_BOT_TOKEN            (粘贴 token)
      3) (可选) wrangler secret put TG_WEBHOOK_SECRET       (任意随机串，防伪造)
      4) 注册回调:  curl "https://api.telegram.org/bot<TOKEN>/setWebhook?url=<origin>/tg&secret_token=<SECRET>"
@@ -2097,7 +2123,7 @@ app.post("/tg", async (c) => {
   }
   const token = c.env && c.env.TG_BOT_TOKEN;
   let update = null;
-  try { update = await c.req.json(); } catch (e) { }
+  try { update = await c.req.json(); } catch (e) {}
   const msg = update && (update.message || update.channel_post);
   const text = (msg && msg.text) || "";
   const chatId = msg && msg.chat && msg.chat.id;
@@ -2123,7 +2149,7 @@ app.onError((e, c) => {
 export default {
   async fetch(request, env, ctx) {
     let pathname = "/";
-    try { pathname = new URL(request.url).pathname; } catch (e) { }
+    try { pathname = new URL(request.url).pathname; } catch (e) {}
     // Lightweight access log — stream it live with `wrangler tail` to spot resale / abuse.
     // (No IP logged; edge-cached static fetches won't appear here, but page loads will.)
     try {
@@ -2132,7 +2158,7 @@ export default {
         ref: request.headers.get("referer") || "",
         ua: (request.headers.get("user-agent") || "").slice(0, 90),
       }));
-    } catch (e) { }
+    } catch (e) {}
     return app.fetch(request, env, ctx);
   },
 };
