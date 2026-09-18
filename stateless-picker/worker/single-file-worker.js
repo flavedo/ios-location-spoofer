@@ -1660,7 +1660,19 @@ body{
 .enter:active{ transform:scale(.97); }
 .enter.go{ background:linear-gradient(135deg,#2ee06a,#129a44); color:#04240f; box-shadow:0 10px 26px rgba(34,197,94,.34); }
 
-.divider{ height:1px; background:linear-gradient(90deg,transparent,var(--line),transparent); margin:24px 0 20px; }
+.ctas-sub{ display:flex; gap:10px; margin:8px 0 4px; }
+.btn-sub{ flex:1; display:flex; align-items:center; justify-content:center; gap:6px; padding:12px 10px; border:1px solid var(--line); border-radius:12px; background:var(--card); color:var(--txt); font-size:13px; font-weight:700; cursor:pointer; text-decoration:none; transition:all .12s; box-shadow:0 4px 14px rgba(0,0,0,.18); white-space:nowrap; }
+.btn-sub:active{ transform:scale(.97); }
+.btn-sub.clear{ border-color:rgba(255,91,96,.35); color:#ff9498; }
+.btn-sub.clear:hover{ background:rgba(255,91,96,.1); border-color:var(--red); }
+.btn-sub.share{ border-color:rgba(23,195,207,.35); color:#7fe3ea; }
+.btn-sub.share:hover{ background:rgba(23,195,207,.1); border-color:var(--cyan); }
+.btn-sub .tag{ font-size:10px; font-weight:600; padding:1.5px 5.5px; border-radius:5px; opacity:.9; }
+.btn-sub.clear .tag{ background:rgba(255,91,96,.16); color:#ff8589; }
+.btn-sub.share .tag{ background:rgba(23,195,207,.16); color:var(--cyan); }
+@media (max-width:360px){ .btn-sub .tag{ display:none; } }
+
+.divider{ height:1px; background:linear-gradient(90deg,transparent,var(--line),transparent); margin:20px 0 20px; }
 
 /* --- section heads with accent bar --- */
 h2{ font-size:16px; font-weight:800; margin-bottom:4px; display:flex; align-items:center; gap:9px; }
@@ -1698,6 +1710,10 @@ footer b{ color:#8fe0e6; }
   <div class="ctas">
     <a class="enter go" href="/picker">🗺️ 进入选点网页</a>
     <a class="enter" style="background:linear-gradient(135deg,var(--cyan),var(--cyan2));color:#022a2d;box-shadow:0 10px 26px rgba(23,195,207,.28)" href="/set">⚡ 一键换定位</a>
+  </div>
+  <div class="ctas-sub">
+    <a class="btn-sub clear" href="https://www.icloud.com/shortcuts/b60615c5ac5a401a9bf56de4f55c1dbb" target="_blank" rel="noopener">🧹 清除定位 <span class="tag">快捷指令</span></a>
+    <a class="btn-sub share" href="https://www.icloud.com/shortcuts/1365464980fd430fb6a7c1e591eb564c" target="_blank" rel="noopener">📍 分享定位 <span class="tag">快捷指令</span></a>
   </div>
 
   <div class="divider"></div>
@@ -2079,7 +2095,7 @@ app.post("/tg", async (c) => {
   }
   const token = c.env && c.env.TG_BOT_TOKEN;
   let update = null;
-  try { update = await c.req.json(); } catch (e) {}
+  try { update = await c.req.json(); } catch (e) { }
   const msg = update && (update.message || update.channel_post);
   const text = (msg && msg.text) || "";
   const chatId = msg && msg.chat && msg.chat.id;
@@ -2105,7 +2121,7 @@ app.onError((e, c) => {
 export default {
   async fetch(request, env, ctx) {
     let pathname = "/";
-    try { pathname = new URL(request.url).pathname; } catch (e) {}
+    try { pathname = new URL(request.url).pathname; } catch (e) { }
     // Lightweight access log — stream it live with `wrangler tail` to spot resale / abuse.
     // (No IP logged; edge-cached static fetches won't appear here, but page loads will.)
     try {
@@ -2114,7 +2130,7 @@ export default {
         ref: request.headers.get("referer") || "",
         ua: (request.headers.get("user-agent") || "").slice(0, 90),
       }));
-    } catch (e) {}
+    } catch (e) { }
     return app.fetch(request, env, ctx);
   },
 };
