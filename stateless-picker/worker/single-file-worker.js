@@ -1632,7 +1632,7 @@ function getLandingHtml() {
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>iOS Location Spoofer · 虚拟定位</title>
+<title>iOS Location Spoofer</title>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#0a0c11">
 <link rel="apple-touch-icon" href="/icon-180.png">
@@ -1652,18 +1652,10 @@ body{
     var(--bg);
   background-attachment:fixed;
 }
-.wrap{ max-width:600px; margin:0 auto; padding:20px 16px calc(44px + env(safe-area-inset-bottom)); }
-
-/* --- header / branding --- */
-header{ text-align:center; padding:12px 0 6px; }
-h1{ font-size:23px; font-weight:800; letter-spacing:.3px; background:linear-gradient(92deg,#eafcff,#7fe3ea 55%,#22c55e); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
-.credit{ font-size:12px; color:var(--muted); margin-top:9px; line-height:1.7; }
-.credit a{ color:#8fe0e6; text-decoration:none; }
-.synced{ font-size:12px; color:#22c55e; font-weight:700; margin-top:8px; }
-.synced a{ color:#22c55e; text-decoration:underline; }
+.wrap{ max-width:600px; margin:0 auto; padding:16px 16px calc(44px + env(safe-area-inset-bottom)); }
 
 /* --- primary CTAs --- */
-.ctas{ display:flex; gap:10px; margin:18px 0 4px; }
+.ctas{ display:flex; gap:10px; margin:12px 0 4px; }
 .enter{ flex:1; display:flex; align-items:center; justify-content:center; gap:8px; padding:17px 14px; border:none; border-radius:14px; font-size:16px; font-weight:800; cursor:pointer; text-decoration:none; transition:transform .12s,box-shadow .12s; }
 .enter:active{ transform:scale(.97); }
 .enter.go{ background:linear-gradient(135deg,#2ee06a,#129a44); color:#04240f; box-shadow:0 10px 26px rgba(34,197,94,.34); }
@@ -1703,16 +1695,6 @@ footer b{ color:#8fe0e6; }
 </head>
 <body>
 <div class="wrap">
-  <header>
-    <h1>iOS Location Spoofer · 虚拟定位</h1>
-    <p class="credit">
-      fork from 鸣谢贡献者：<a href="https://github.com/Yu9191/wloc" target="_blank" rel="noopener">Yu9191</a> ·
-      <a href="https://github.com/mekos2772/ios-location-spoofer" target="_blank" rel="noopener">mekos2772</a> ·
-      <a href="https://github.com/acheong08/ios-location-spoofer" target="_blank" rel="noopener">acheong08</a>
-    </p>
-    <p class="synced">✅ 已同步上游 <a href="https://github.com/Yu9191/wloc/releases" target="_blank" rel="noopener">Yu9191/wloc v1.1</a>：随机扰动半径 · 港澳台/百度坐标解析</p>
-  </header>
-
   <div class="ctas">
     <a class="enter go" href="/picker">🗺️ 进入选点网页</a>
     <a class="enter" style="background:linear-gradient(135deg,var(--cyan),var(--cyan2));color:#022a2d;box-shadow:0 10px 26px rgba(23,195,207,.28)" href="/set">⚡ 一键换定位</a>

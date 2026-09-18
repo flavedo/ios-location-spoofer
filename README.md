@@ -60,11 +60,6 @@ iPhone 靠周围 Wi-Fi、基站的 BSSID 去问 Apple「这些设备在哪」，
 
 ---
 
-## 🙏 fork from 鸣谢贡献者
-
-[Yu9191/wloc](https://github.com/Yu9191/wloc) · [mekos2772/ios-location-spoofer](https://github.com/mekos2772/ios-location-spoofer) · [acheong08/ios-location-spoofer](https://github.com/acheong08/ios-location-spoofer)
-
----
-
 许可证：**GNU AGPL-3.0**（继承自上游项目）
+
 
